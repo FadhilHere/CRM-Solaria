@@ -23,6 +23,20 @@
             background-color: #B21B7A;
             /* Warna saat di-hover */
         }
+
+        .account-link {
+            /* Style baru untuk link */
+            color: #E042A5;
+            /* Warna ungu muda */
+            text-decoration: none;
+            /* Menghilangkan garis bawah */
+        }
+
+        .account-link:hover {
+            /* Saat di-hover */
+            color: #E042A5;
+            /* Warna saat di-hover sama dengan tombol login */
+        }
     </style>
 </head>
 
@@ -36,7 +50,7 @@
             </div>
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
-                    Username
+                    Email
                 </label>
                 <input type="email" name="email" id="email" required
                     class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -52,16 +66,15 @@
             </div>
             <div class="mb-6">
                 <button type="submit"
-                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 w-full rounded focus:outline-none focus:shadow-outline login-btn">
+                    class="login-btn bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 w-full rounded focus:outline-none focus:shadow-outline">
                     Login
                 </button>
             </div>
             <div class="flex justify-between">
-                <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">
+                <a class="account-link" href="#">
                     Create Account
                 </a>
-                <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
-                    href="#">
+                <a class="account-link" href="#">
                     Forgot Password?
                 </a>
             </div>

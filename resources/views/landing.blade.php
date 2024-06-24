@@ -33,8 +33,11 @@
     <!-- navbar -->
     <div id="navbar" class="navbar navbar-expand-lg justify-content-center align-items-center">
         <div class="container">
-            <a href="#" class="navbar-brand"><img src="{{ asset('assetsLanding/img/logo.png') }}"
-                    alt="logo"></a>
+            <a href="#" class="navbar-brand">
+                <img src="{{ asset('assetsLanding/img/Solaria.png') }}" alt="logo"
+                    style="height: 50px; width: 50px;"> <!-- Menggunakan inline style -->
+            </a>
+
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -48,7 +51,7 @@
                     <li class="nav-item"><a class="nav-link" href="#menus">Menus</a></li>
                     <li class="nav-item"><a class="nav-link" href="#faq">FAQ</a></li>
                     <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">Login</a></li>
+
                 </ul>
             </div>
 
@@ -69,10 +72,13 @@
                 <div class="row align-items-center">
                     <div class="col-md-12 col-sm-12 col-lg-7">
                         <div class="content-text">
-                            <h1>The Best Favorite Place Eat And Drink With Friendly Price</h1>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique quae unde vitae
-                                hic impedit voluptate labore quam aliquam. Eaque, perspiciatis? Quaerat quibusdam
-                                natus distinctio accusantium eligendi eaque numquam deserunt at?</p>
+                            <h1>Selamat Datang di Solaria - Pintu Kelezatan Kuliner Anda</h1>
+                            <p>Di Solaria, kami berkomitmen menyajikan makanan lezat dengan bahan berkualitas tinggi
+                                dalam suasana yang hangat dan menyenangkan. Nikmati berbagai pilihan menu dari hidangan
+                                klasik hingga inovasi baru yang siap memanjakan lidah Anda. Solaria, tempat makan ideal
+                                untuk setiap kesempatan.</p>
+
+
                             <ul>
                                 <li><a href=""><i class="la la-facebook"></i></a></li>
                                 <li><a href=""><i class="la la-twitter"></i></a></li>
