@@ -162,7 +162,7 @@ img {
 }
 
 .button:hover {
-    background: #101010;
+    background: #7b0650;
     color: #ffffff;
     border-color: transparent;
 }
@@ -400,13 +400,12 @@ img {
     margin-left: 11px;
 }
 .product .product-filter-menu {
-    float: right;
-    top: -83px;
-    position: relative;
-    margin-bottom: -60px;
-    left: -11px;
+    text-align: center; /* Menyelaraskan menu filter ke tengah */
+    margin: 0 auto; /* Mengatur margin otomatis agar tetap di tengah */
+    padding: 10px 0; /* Menambahkan padding atas dan bawah */
 }
 .product .product-filter-menu ul {
+    display: inline-block; /* Menampilkan ul sebagai blok sebaris */
     background: #f4d3e7;
     padding: 10px 20px;
     border-radius: 5px;
@@ -416,7 +415,7 @@ img {
 }
 .product .product-filter-menu ul li {
     display: inline-block;
-    margin: 0 20px;
+    margin: 0 10px; /* Mengurangi margin agar tidak terlalu lebar */
     cursor: pointer;
 }
 .product .product-filter-menu ul li:hover {

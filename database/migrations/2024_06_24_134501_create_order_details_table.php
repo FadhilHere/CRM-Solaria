@@ -10,10 +10,10 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('order_details', function (Blueprint $table) {
+        Schema::create('order_detail', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('order_id')->nullable()->constrained('orders');
-            $table->foreignId('product_id')->nullable()->constrained('products');
+            $table->foreignId('order_id')->nullable()->constrained('order');
+            $table->foreignId('product_id')->nullable()->constrained('product');
             $table->integer('quantity')->nullable();
             $table->decimal('price', 10, 2)->nullable();
             $table->timestamps();
@@ -26,6 +26,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('order_details');
+        Schema::dropIfExists('order_detail');
     }
 };
