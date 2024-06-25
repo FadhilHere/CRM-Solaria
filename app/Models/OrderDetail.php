@@ -9,22 +9,24 @@ class OrderDetail extends Model
 {
     use HasFactory;
 
-    protected $table = 'order_detail'; // Menentukan nama tabel
-    protected $fillable = ['order_id', 'product_id', 'quantity', 'price']; // Memastikan atribut-atribut ini dapat diisi massal
+    protected $table = 'order_details';
+    protected $primaryKey = 'id';
+    public $timestamps = true;
 
-    /**
-     * Get the order that owns the order detail.
-     */
+    protected $fillable = [
+        'order_id',
+        'product_id',
+        'quantity',
+        'price',
+    ];
+
     public function order()
     {
-        return $this->belongsTo(Order::class, 'order_id');
+        return $this->belongsTo(Order::class);
     }
 
-    /**
-     * Get the product associated with the order detail.
-     */
     public function product()
     {
-        return $this->belongsTo(Product::class, 'product_id');
+        return $this->belongsTo(Product::class);
     }
 }

@@ -9,22 +9,24 @@ class Order extends Model
 {
     use HasFactory;
 
-    protected $table = 'order'; // Menentukan nama tabel
-    protected $fillable = ['user_id', 'order_date', 'status', 'total_price']; // Memastikan atribut-atribut ini dapat diisi massal
+    protected $table = 'orders';
+    protected $primaryKey = 'id';
+    public $timestamps = true;
 
-    /**
-     * Get the user who placed the order.
-     */
+    protected $fillable = [
+        'user_id',
+        'order_date',
+        'status',
+        'total_price',
+    ];
+
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class);
     }
 
-    /**
-     * Get the order details for the order.
-     */
     public function orderDetails()
     {
-        return $this->hasMany(OrderDetail::class, 'order_id');
+        return $this->hasMany(OrderDetail::class);
     }
 }

@@ -3,28 +3,43 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-class User extends Model
+class User extends Authenticatable
 {
-    use HasFactory;
+    use HasFactory, Notifiable;
 
-    protected $table = 'user'; // Menentukan nama tabel
-    protected $fillable = ['name', 'email', 'phone_number', 'address', 'date_of_birth', 'role']; // Memastikan atribut-atribut ini dapat diisi massal
+    protected $table = 'users';
+    protected $primaryKey = 'id';
+    public $timestamps = true;
 
-    /**
-     * Get the orders associated with the user.
-     */
+    protected $fillable = [
+        'name',
+        'email',
+        'password',
+        'phone_number',
+        'address',
+        'date_of_birth',
+        'role',
+    ];
+
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
+
     public function orders()
     {
-        return $this->hasMany(Order::class, 'CustomerID');
+        return $this->hasMany(Order::class);
     }
 
-    /**
-     * Get the reservations made by the user.
-     */
     public function reservations()
     {
-        return $this->hasMany(Reservation::class, 'CustomerID');
+        return $this->hasMany(Reservation::class);
     }
 }

@@ -9,14 +9,18 @@ class Product extends Model
 {
     use HasFactory;
 
-    protected $table = 'product'; // Menentukan nama tabel
-    protected $fillable = ['name', 'price', 'description']; // Memastikan atribut-atribut ini dapat diisi massal
+    protected $table = 'products';
+    protected $primaryKey = 'id';
+    public $timestamps = true;
 
-    /**
-     * Get the order details associated with the product.
-     */
+    protected $fillable = [
+        'name',
+        'price',
+        'description',
+    ];
+
     public function orderDetails()
     {
-        return $this->hasMany(OrderDetail::class, 'ProductID');
+        return $this->hasMany(OrderDetail::class);
     }
 }
