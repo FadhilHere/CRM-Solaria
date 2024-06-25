@@ -9,14 +9,19 @@ class Reservation extends Model
 {
     use HasFactory;
 
-    protected $table = 'reservation'; // Menentukan nama tabel
-    protected $fillable = ['user_id', 'reservation_date', 'number_of_people', 'status']; // Memastikan atribut-atribut ini dapat diisi massal
+    protected $table = 'reservations';
+    protected $primaryKey = 'id';
+    public $timestamps = true;
 
-    /**
-     * Get the user who made the reservation.
-     */
+    protected $fillable = [
+        'user_id',
+        'reservation_date',
+        'number_of_people',
+        'status',
+    ];
+
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class);
     }
 }

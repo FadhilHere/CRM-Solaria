@@ -9,9 +9,13 @@ class Promo extends Model
 {
     use HasFactory;
 
-    protected $table = 'promo'; // Menentukan nama tabel
-    protected $primaryKey = 'PromoID'; // Menyesuaikan primaryKey dengan skema yang diberikan
-    protected $fillable = ['namaPromo', 'TanggalExpired', 'jumlah']; // Memastikan atribut-atribut ini dapat diisi massal
+    protected $table = 'promos';
+    protected $primaryKey = 'id';
+    public $timestamps = true;
 
-    // Tambahkan relasi atau fungsi tambahan jika diperlukan
+    protected $fillable = [
+        'name',
+        'expired',
+        'percentage',
+    ];
 }

@@ -10,15 +10,13 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('reservation', function (Blueprint $table) {
+        Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->nullable()->constrained('users');
-            $table->date('reservation_date')->nullable();
-            $table->integer('number_of_people')->nullable();
-            $table->string('status')->nullable();
+            $table->string('name')->unique();
+            $table->decimal('price', 10, 2);
+            $table->text('description');
             $table->timestamps();
         });
-
     }
 
     /**
@@ -26,6 +24,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('reservation');
+        Schema::dropIfExists('products');
     }
 };
