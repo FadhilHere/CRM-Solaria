@@ -21,17 +21,15 @@ class LoginController extends Controller
             'password' => ['required'],
         ]);
 
-        if (Auth::attempt($credentials)) {
+        if (Auth::attempt($credentials, $request->remember)) {
             $request->session()->regenerate();
 
-            // Redirect based on user role
             if (Auth::user()->role == 'admin') {
                 return redirect()->intended('dashboard');
             } elseif (Auth::user()->role == 'pelanggan') {
-                return redirect()->intended('dashboard-pelanggan');
+                return redirect()->intended('landing');
             }
 
-            // You can add more role-based redirections here
             return redirect()->intended('/');
         }
 
