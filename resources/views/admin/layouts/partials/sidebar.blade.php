@@ -52,7 +52,7 @@
                 <a href="#" class="menu-toggle nav-link has-dropdown"><i
                         data-feather="book-open"></i><span>Menu</span></a>
                 <ul class="dropdown-menu">
-                    <li><a class="nav-link" href="#">Data Menu</a></li>
+                    <li><a class="nav-link" href="{{ route('menus.index') }}">Data Menu</a></li>
                 </ul>
             </li>
         </ul>
