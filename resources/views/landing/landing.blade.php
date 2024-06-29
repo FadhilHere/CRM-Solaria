@@ -46,11 +46,15 @@
                                 klasik hingga inovasi baru yang siap memanjakan lidah Anda. Solaria, tempat makan ideal
                                 untuk setiap kesempatan.</p>
                             <ul>
-                                <li><a href=""><i class="la la-facebook"></i></a></li>
-                                <li><a href=""><i class="la la-twitter"></i></a></li>
-                                <li><a href=""><i class="la la-instagram"></i></a></li>
+                                <li><a
+                                        href="https://www.facebook.com/p/Solaria-Indonesia-100057582874563/?locale=id_ID"><i
+                                            class="la la-facebook"></i></a></li>
+                                <li><a href="https://x.com/SolariaID"><i class="la la-twitter"></i></a></li>
+                                <li><a href="https://www.instagram.com/solaria.indonesia"><i
+                                            class="la la-instagram"></i></a></li>
                                 <li><a href=""><i class="la la-youtube"></i></a></li>
-                                <li><a href=""><i class="la la-linkedin"></i></a></li>
+                                <li><a href="https://www.linkedin.com/company/solaria-restaurant/"><i
+                                            class="la la-linkedin"></i></a></li>
                             </ul>
                         </div>
                     </div>
@@ -177,7 +181,7 @@
         <!-- product -->
         <div class="product" id="menus">
             <div class="container">
-                <h2>Choose Our Menus<br>Food And Drinks</h2>
+                <h2>Menu Kami</h2>
                 <div class="box-content">
                     <div class="product-filter-menu">
                         <ul>
@@ -416,8 +420,9 @@
                     <div class="col-md">
                         <div class="content-map">
                             <iframe
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d387193.3059353029!2d-74.25986548248684!3d40.69714941932609!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sKota%20New%20York%2C%20New%20York%2C%20Amerika%20Serikat!5e0!3m2!1sid!2sid!4v1639286790548!5m2!1sid!2sid"
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3979.723734891058!2d101.41582501423934!3d0.49977025318829127!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31da134317d7c667%3A0x77ecfefea04c6a7b!2sJl.%20Hangtuah%2C%20Sungai%20Selincah%2C%20Kec.%20Marpoyan%20Damai%2C%20Kota%20Pekanbaru%2C%20Riau!5e0!3m2!1sid!2sid!4v1639286790548!5m2!1sid!2sid"
                                 height="350" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+
                         </div>
                     </div>
                     <div class="col-md">
