@@ -22,10 +22,27 @@
         </div>
 
         <ul class="button-navbar ml-auto">
-            <li><a class="button login-button" href="{{ route('login') }}">Login</a></li>
-            <!-- Login dengan warna ungu pekat -->
-            <li><button class="button order-button">Register</button></li>
-            <!-- Order Now dengan warna ungu muda -->
+            @guest
+                <li><a class="button login-button" href="{{ route('login') }}">Login</a></li>
+                <li><a class="button order-button" href="{{ route('register') }}">Register</a></li>
+            @else
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="la la-user"></i>
+                        {{ Auth::user()->name }}
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#">Profile</a></li>
+                        <li><a class="dropdown-item" href="#"
+                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+                        </li>
+                    </ul>
+                </li>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
+            @endguest
         </ul>
     </div>
 </div>

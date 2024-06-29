@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="{{ asset('assetsLanding/img/favicon.png') }}">
-    <title>Shara</title>
+    <link rel="shortcut icon" href="{{ asset('assetsLanding/img/Solaria.png') }}">
+    <title>Solaria</title>
     <link rel="stylesheet" href="{{ asset('assetsLanding/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assetsLanding/css/line-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assetsLanding/css/magnific-popup.css') }}">
@@ -31,39 +31,7 @@
     <!-- end loader -->
 
     <!-- navbar -->
-    <div id="navbar" class="navbar navbar-expand-lg justify-content-center align-items-center">
-        <div class="container">
-            <a href="#" class="navbar-brand">
-                <img src="{{ asset('assetsLanding/img/Solaria.png') }}" alt="logo"
-                    style="height: 50px; width: 50px;"> <!-- Menggunakan inline style -->
-            </a>
-
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <i class="la la-bars"></i>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav nav">
-                    <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#menus">Menus</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#faq">FAQ</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-
-                </ul>
-            </div>
-
-            <ul class="button-navbar ml-auto">
-                <li><a class="button login-button" href="{{ route('login') }}">Login</a></li>
-                <!-- Login dengan warna ungu pekat -->
-                <li><button class="button order-button">Order</button></li>
-                <!-- Order Now dengan warna ungu muda -->
-            </ul>
-        </div>
-    </div>
-    <!-- end navbar -->
+    @include('pelanggan.navbar')
 
     <!-- intro -->
     <div id="home" class="intro">
@@ -77,8 +45,6 @@
                                 dalam suasana yang hangat dan menyenangkan. Nikmati berbagai pilihan menu dari hidangan
                                 klasik hingga inovasi baru yang siap memanjakan lidah Anda. Solaria, tempat makan ideal
                                 untuk setiap kesempatan.</p>
-
-
                             <ul>
                                 <li><a href=""><i class="la la-facebook"></i></a></li>
                                 <li><a href=""><i class="la la-twitter"></i></a></li>
@@ -104,44 +70,50 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-md">
-                    <img src="{{ asset('assetsLanding/img/about.png') }}" alt="about image">
+                    <img src="{{ asset('assetsLanding/img/about.jpg') }}" alt="about image">
                 </div>
                 <div class="col-lg-8 col-md-12">
                     <div class="content">
-                        <div class="the-title"><span></span>ABOUT US</div>
-                        <h2>We Were Founded In The 90's <br> Innovate For The Better</h2>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis ex quod perspiciatis
-                            accusamus maxime iis ex quod perspiciatis accusamus maxime ommodi omnis blanditiis ex quod
-                            perspiciatis accusamus maxime ommodi.</p>
+                        <div class="the-title"><span></span>TENTANG KAMI</div>
+                        <h2>Inovasi Kuliner Sejak 90-an </h2>
+                        <p>Didirikan pada era 90-an, Solaria berkomitmen untuk menyajikan pengalaman bersantap yang
+                            inovatif dan menyenangkan. Setiap hidangan kami disajikan dengan standar kualitas tinggi,
+                            harga yang ramah, dan suasana yang nyaman, menjadikan setiap kunjungan ke Solaria lebih dari
+                            sekedar makan.
+                        </p>
                         <div class="row">
                             <div class="col">
                                 <div class="icon">
-                                    <i class="la la-wifi"></i>
+                                    <i class="la la-smile-o"></i>
+                                    <!-- Mengganti ikon ke smile untuk mewakili pelayanan ramah -->
                                 </div>
                                 <div class="text">
-                                    <h5>Free Wifi</h5>
-                                    <span>Features</span>
+                                    <h5>Pelayanan Ramah</h5>
+                                    <span>Service</span>
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="icon">
-                                    <i class="la la-dollar"></i>
+                                    <i class="la la-tags"></i>
+                                    <!-- Mengganti ikon ke tags untuk mewakili harga terjangkau -->
                                 </div>
                                 <div class="text">
-                                    <h5>Friendly Price</h5>
+                                    <h5>Harga Terjangkau</h5>
                                     <span>Price</span>
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="icon">
-                                    <i class="la la-recycle"></i>
+                                    <i class="la la-leaf"></i>
+                                    <!-- Mengganti ikon ke leaf untuk mewakili bersih dan nyaman -->
                                 </div>
-                                <div the="text">
-                                    <h5>Clean & Cool</h5>
-                                    <span>Place</span>
+                                <div class="text">
+                                    <h5>Bersih dan Nyaman</h5>
+                                    <span>Environment</span>
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -153,48 +125,48 @@
     <div class="open-hours">
         <div class="container">
             <div class="content">
-                <h2>Open Hours</h2>
+                <h2>Jam <br> Operasional</h2>
                 <div class="row">
                     <div class="col-md">
                         <ul>
-                            <li>Monday</li>
-                            <li>8am - 7pm</li>
+                            <li>Senin</li>
+                            <li>10am - 10pm</li>
                         </ul>
                     </div>
                     <div class="col-md">
                         <ul>
-                            <li>Tuesday</li>
-                            <li>8am - 7pm</li>
+                            <li>Selasa</li>
+                            <li>10am - 10pm</li>
                         </ul>
                     </div>
                     <div class="col-md">
                         <ul>
-                            <li>Wednesday</li>
-                            <li>8am - 7pm</li>
+                            <li>Rabu</li>
+                            <li>10am - 10pm</li>
                         </ul>
                     </div>
                     <div class="col-md">
                         <ul>
-                            <li>Thursday</li>
-                            <li>8am - 7pm</li>
+                            <li>Kamis</li>
+                            <li>10am - 10pm</li>
                         </ul>
                     </div>
                     <div class="col-md">
                         <ul>
-                            <li>Friday</li>
-                            <li>8am - 7pm</li>
+                            <li>Jumat</li>
+                            <li>10am - 10pm</li>
                         </ul>
                     </div>
                     <div class="col-md">
                         <ul>
-                            <li>Saturday</li>
-                            <li>8am - 7pm</li>
+                            <li>Sabtu</li>
+                            <li>10am - 10pm</li>
                         </ul>
                     </div>
-                    <div class="col-md-12">
-                        <ul class="hours text-center">
-                            <li>Sunday</li>
-                            <li>24 Hours</li>
+                    <div class="col-md">
+                        <ul>
+                            <li>Minggu</li>
+                            <li>10am - 10pm</li>
                         </ul>
                     </div>
                 </div>
@@ -213,20 +185,23 @@
                                 <span>Show All</span>
                             </li>
                             <li data-filter="1">
-                                <span>Food</span>
+                                <span>Western</span>
                             </li>
                             <li data-filter="2">
-                                <span>Drink</span>
+                                <span>Chinese</span>
+                            </li>
+                            <li data-filter="3">
+                                <span>Local</span>
                             </li>
                         </ul>
                     </div>
                     <div class="row filtr-container">
                         <div class="col-md-4 col-sm-12 col-xs-12 col-12 filtr-item" data-category="1">
                             <div class="content">
-                                <a href="{{ asset('assetsLanding/img/product3.png') }}" class="product-popup">
-                                    <img src="{{ asset('assetsLanding/img/product3.png') }}" alt="">
+                                <a href="{{ asset('assetsLanding/img/fish-and-chips.png') }}" class="product-popup">
+                                    <img src="{{ asset('assetsLanding/img/fish-and-chips.png') }}" alt="">
                                 </a>
-                                <h5>Avocado Egg</h5>
+                                <h5>Fish & Chips + Kentang</h5>
                                 <ul>
                                     <li><i class="la la-star"></i></li>
                                     <li><i class="la la-star"></i></li>
@@ -234,15 +209,47 @@
                                     <li><i class="la la-star"></i></li>
                                     <li><i class="la la-star"></i></li>
                                 </ul>
-                                <span>$45</span>
+                                <span>Rp. 53.000</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-12 col-xs-12 col-12 filtr-item" data-category="1">
+                            <div class="content">
+                                <a href="{{ asset('assetsLanding/img/spagheti.png') }}" class="product-popup">
+                                    <img src="{{ asset('assetsLanding/img/spagheti.png') }}" alt="">
+                                </a>
+                                <h5>Spaghetti</h5>
+                                <ul>
+                                    <li><i class="la la-star"></i></li>
+                                    <li><i class="la la-star"></i></li>
+                                    <li><i class="la la-star"></i></li>
+                                    <li><i class="la la-star"></i></li>
+                                    <li><i class="la la-star"></i></li>
+                                </ul>
+                                <span>Rp. 35.000</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-12 col-xs-12 col-12 filtr-item" data-category="1">
+                            <div class="content">
+                                <a href="{{ asset('assetsLanding/img/cordon-bleu.png') }}" class="product-popup">
+                                    <img src="{{ asset('assetsLanding/img/cordon-bleu.png') }}" alt="">
+                                </a>
+                                <h5>Chicken Cordon Bleu + Kentang</h5>
+                                <ul>
+                                    <li><i class="la la-star"></i></li>
+                                    <li><i class="la la-star"></i></li>
+                                    <li><i class="la la-star"></i></li>
+                                    <li><i class="la la-star"></i></li>
+                                    <li><i class="la la-star"></i></li>
+                                </ul>
+                                <span>Rp. 47.000</span>
                             </div>
                         </div>
                         <div class="col-md-4 col-sm-12 col-xs-12 col-12 filtr-item" data-category="2">
                             <div class="content">
-                                <a href="{{ asset('assetsLanding/img/product1.png') }}" class="product-popup">
-                                    <img src="{{ asset('assetsLanding/img/product1.png') }}" alt="">
+                                <a href="{{ asset('assetsLanding/img/fuyunghai.png') }}" class="product-popup">
+                                    <img src="{{ asset('assetsLanding/img/fuyunghai.png') }}" alt="">
                                 </a>
-                                <h5>Fresh Orange</h5>
+                                <h5>Nasi Fu Yung Hai</h5>
                                 <ul>
                                     <li><i class="la la-star"></i></li>
                                     <li><i class="la la-star"></i></li>
@@ -250,15 +257,15 @@
                                     <li><i class="la la-star"></i></li>
                                     <li><i class="la la-star"></i></li>
                                 </ul>
-                                <span>$15</span>
+                                <span>Rp. 42.000</span>
                             </div>
                         </div>
                         <div class="col-md-4 col-sm-12 col-xs-12 col-12 filtr-item" data-category="2">
                             <div class="content">
-                                <a href="{{ asset('assetsLanding/img/product1.png') }}" class="product-popup">
-                                    <img src="{{ asset('assetsLanding/img/product1.png') }}" alt="">
+                                <a href="{{ asset('assetsLanding/img/fuyunghai.png') }}" class="product-popup">
+                                    <img src="{{ asset('assetsLanding/img/fuyunghai.png') }}" alt="">
                                 </a>
-                                <h5>Fresh Orange</h5>
+                                <h5>Nasi Fu Yung Hai</h5>
                                 <ul>
                                     <li><i class="la la-star"></i></li>
                                     <li><i class="la la-star"></i></li>
@@ -266,15 +273,15 @@
                                     <li><i class="la la-star"></i></li>
                                     <li><i class="la la-star"></i></li>
                                 </ul>
-                                <span>$15</span>
+                                <span>Rp. 42.000</span>
                             </div>
                         </div>
                         <div class="col-md-4 col-sm-12 col-xs-12 col-12 filtr-item" data-category="2">
                             <div class="content">
-                                <a href="{{ asset('assetsLanding/img/product1.png') }}" class="product-popup">
-                                    <img src="{{ asset('assetsLanding/img/product1.png') }}" alt="">
+                                <a href="{{ asset('assetsLanding/img/fuyunghai.png') }}" class="product-popup">
+                                    <img src="{{ asset('assetsLanding/img/fuyunghai.png') }}" alt="">
                                 </a>
-                                <h5>Fresh Orange</h5>
+                                <h5>Nasi Fu Yung Hai</h5>
                                 <ul>
                                     <li><i class="la la-star"></i></li>
                                     <li><i class="la la-star"></i></li>
@@ -282,7 +289,55 @@
                                     <li><i class="la la-star"></i></li>
                                     <li><i class="la la-star"></i></li>
                                 </ul>
-                                <span>$15</span>
+                                <span>Rp. 42.000</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-12 col-xs-12 col-12 filtr-item" data-category="3">
+                            <div class="content">
+                                <a href="{{ asset('assetsLanding/img/nasgor-petai.png') }}" class="product-popup">
+                                    <img src="{{ asset('assetsLanding/img/nasgor-petai.png') }}" alt="">
+                                </a>
+                                <h5>Nasi Goreng Petai</h5>
+                                <ul>
+                                    <li><i class="la la-star"></i></li>
+                                    <li><i class="la la-star"></i></li>
+                                    <li><i class="la la-star"></i></li>
+                                    <li><i class="la la-star"></i></li>
+                                    <li><i class="la la-star"></i></li>
+                                </ul>
+                                <span>Rp. 42.000</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-12 col-xs-12 col-12 filtr-item" data-category="3">
+                            <div class="content">
+                                <a href="{{ asset('assetsLanding/img/nasgor-petai.png') }}" class="product-popup">
+                                    <img src="{{ asset('assetsLanding/img/nasgor-petai.png') }}" alt="">
+                                </a>
+                                <h5>Nasi Goreng Petai</h5>
+                                <ul>
+                                    <li><i class="la la-star"></i></li>
+                                    <li><i class="la la-star"></i></li>
+                                    <li><i class="la la-star"></i></li>
+                                    <li><i class="la la-star"></i></li>
+                                    <li><i class="la la-star"></i></li>
+                                </ul>
+                                <span>Rp. 42.000</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-12 col-xs-12 col-12 filtr-item" data-category="3">
+                            <div class="content">
+                                <a href="{{ asset('assetsLanding/img/nasgor-petai.png') }}" class="product-popup">
+                                    <img src="{{ asset('assetsLanding/img/nasgor-petai.png') }}" alt="">
+                                </a>
+                                <h5>Nasi Goreng Petai</h5>
+                                <ul>
+                                    <li><i class="la la-star"></i></li>
+                                    <li><i class="la la-star"></i></li>
+                                    <li><i class="la la-star"></i></li>
+                                    <li><i class="la la-star"></i></li>
+                                    <li><i class="la la-star"></i></li>
+                                </ul>
+                                <span>Rp. 42.000</span>
                             </div>
                         </div>
                         <!-- Additional product entries can be added similarly -->
@@ -298,18 +353,21 @@
                 <div class="row">
                     <div class="col-md-8"></div>
                     <div class="col-md">
-                        <img src="{{ asset('assetsLanding/img/cta.png') }}" alt="cta image">
+                        <img src="{{ asset('assetsLanding/img/gedung.jpeg') }}" alt="cta image">
                     </div>
                 </div>
                 <div class="box-content">
                     <div class="row align-items-center">
                         <div class="col-md">
-                            <h2>Come On, <br>Eat And Drink At Our Place</h2>
+                            <h2>Come <br>Eat And Drink At Our Solaria!</h2>
                             <button class="button">Order Now</button>
+                            <button class="button order-button" style="margin-left: 5px;">Reservasi</button>
+
                         </div>
                         <div class="col-md"></div>
                     </div>
                 </div>
+
             </div>
         </div>
         <!-- end cta -->
