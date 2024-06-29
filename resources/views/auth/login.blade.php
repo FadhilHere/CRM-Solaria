@@ -3,83 +3,88 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    @vite(['resources/css/app.css'])
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
     <title>Login</title>
-    <style>
-        body {
-            background-color: #F4D3E7;
-            /* Ungu muda */
-        }
-
-        .login-btn {
-            background-color: #E042A5;
-            /* Warna utama untuk tombol login */
-            color: #ffffff;
-            /* Warna teks */
-        }
-
-        .login-btn:hover {
-            background-color: #B21B7A;
-            /* Warna saat di-hover */
-        }
-
-        .account-link {
-            /* Style baru untuk link */
-            color: #E042A5;
-            /* Warna ungu muda */
-            text-decoration: none;
-            /* Menghilangkan garis bawah */
-        }
-
-        .account-link:hover {
-            /* Saat di-hover */
-            color: #E042A5;
-            /* Warna saat di-hover sama dengan tombol login */
-        }
-    </style>
+    <!-- General CSS Files -->
+    <link rel="stylesheet" href="{{ asset('assets/css/app.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/bundles/bootstrap-social/bootstrap-social.css') }}">
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/components.css') }}">
+    <!-- Custom style CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
+    <link rel='shortcut icon' type='image/x-icon' href="{{ asset('assets/img/favicon.ico') }}" />
 </head>
 
-<body class="flex items-center justify-center min-h-screen">
-    <div class="w-full max-w-xs">
-        <form action="{{ route('login') }}" method="POST" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-            @csrf
-            <div class="flex justify-center mb-4">
-                <img src="{{ asset('assetsLanding/img/Solaria.png') }}" alt="User Icon" class="h-16 w-16">
-                <!-- Sesuaikan ukuran sesuai kebutuhan -->
+<body>
+    <div class="loader"></div>
+    <div id="app">
+        <section class="section">
+            <div class="container mt-5">
+                <div class="row">
+                    <div
+                        class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
+                        <div class="card card-primary">
+                            <div class="card-header">
+                                <h4>Login</h4>
+                            </div>
+                            <div class="card-body">
+                                <form method="POST" action="{{ route('login') }}" class="needs-validation" novalidate>
+                                    @csrf
+                                    <div class="form-group">
+                                        <label for="email">Email</label>
+                                        <input id="email" type="email" class="form-control" name="email"
+                                            required autofocus>
+                                        <div class="invalid-feedback">
+                                            Mohon isi email Anda
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="password" class="control-label">Kata Sandi</label>
+                                        <input id="password" type="password" class="form-control" name="password"
+                                            required>
+                                        <div class="invalid-feedback">
+                                            Mohon isi kata sandi Anda
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" name="remember" class="custom-control-input"
+                                                id="remember-me">
+                                            <label class="custom-control-label" for="remember-me">Ingat Saya</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary btn-lg btn-block">Masuk</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="text-muted text-center">
+                                Belum punya akun? <a href="{{ route('register') }}">Daftar Sekarang</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
-                    Email
-                </label>
-                <input type="email" name="email" id="email" required
-                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    placeholder="admin@gmail.com">
-            </div>
-            <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
-                    Password
-                </label>
-                <input type="password" name="password" id="password" required
-                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-                    placeholder="••••••••">
-            </div>
-            <div class="mb-6">
-                <button type="submit"
-                    class="login-btn bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 w-full rounded focus:outline-none focus:shadow-outline">
-                    Login
-                </button>
-            </div>
-            <div class="flex justify-between">
-                <a class="account-link" href="#">
-                    Create Account
-                </a>
-                <a class="account-link" href="#">
-                    Forgot Password?
-                </a>
-            </div>
-        </form>
+        </section>
     </div>
+    <!-- General JS Scripts -->
+    <script src="{{ asset('assets/js/app.min.js') }}"></script>
+    <!-- JS Libraries -->
+    <script src="{{ asset('assets/bundles/sweetalert/sweetalert.min.js') }}"></script>
+    <!-- Template JS File -->
+    <script src="{{ asset('assets/js/scripts.js') }}"></script>
+    <!-- Custom JS File -->
+    <script src="{{ asset('assets/js/custom.js') }}"></script>
+    <script>
+        @if (session('success'))
+            swal('Berhasil', '{{ session('success') }}', 'success');
+        @endif
+
+        @if (session('error'))
+            swal('Gagal', '{{ session('error') }}', 'error');
+        @endif
+    </script>
 </body>
 
 </html>
