@@ -10,15 +10,13 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('order', function (Blueprint $table) {
+        Schema::create('promos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->nullable()->constrained('user');
-            $table->date('order_date')->nullable();
-            $table->string('status')->nullable();
-            $table->decimal('total_price', 10, 2)->nullable();
+            $table->string('name')->unique();
+            $table->date('expired');
+            $table->integer('percentage');
             $table->timestamps();
         });
-
     }
 
     /**
@@ -26,6 +24,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('order');
+        Schema::dropIfExists('promos');
     }
 };
