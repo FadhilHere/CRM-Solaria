@@ -16,6 +16,15 @@
             width: 700px;
             height: 700px;
         }
+
+        .whatsapp-chat-button img {
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .whatsapp-chat-button img:hover {
+            transform: scale(1.1);
+        }
     </style>
 </head>
 
@@ -32,6 +41,11 @@
 
     <!-- navbar -->
     @include('pelanggan.navbar')
+    <a href="https://wa.me/6282284945643" target="_blank" class="whatsapp-chat-button"
+        style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
+        <img src="{{ asset('assetsLanding/img/whatsapp.png') }}" alt="Chat via WhatsApp"
+            style="width: 60px; height: 60px;">
+    </a>
 
     <!-- intro -->
     <div id="home" class="intro">
@@ -52,9 +66,7 @@
                                 <li><a href="https://x.com/SolariaID"><i class="la la-twitter"></i></a></li>
                                 <li><a href="https://www.instagram.com/solaria.indonesia"><i
                                             class="la la-instagram"></i></a></li>
-                                <li><a href=""><i class="la la-youtube"></i></a></li>
-                                <li><a href="https://www.linkedin.com/company/solaria-restaurant/"><i
-                                            class="la la-linkedin"></i></a></li>
+
                             </ul>
                         </div>
                     </div>
@@ -426,35 +438,39 @@
                         </div>
                     </div>
                     <div class="col-md">
-                        <div class="content">
-                            <h2>Contact us</h2>
+                        <div class="content text-left">
+                            <h2>Our Contact</h2>
                             <ul>
-                                <li><i class="la la-phone"></i> +61 3 8376 6284 </li>
-                                <li><i class="la la-envelope"></i> contact@domain.com </li>
-                                <li class="address"><i class="la la-map"></i> <span>121 King Street, Melbourne
-                                        Victoria 3000 Australia </span> </li>
+                                <li><i class="la la-phone"></i> +62 851 5639 6190 </li>
+                                <li><i class="la la-envelope"></i> fadhil22si@mahasiswa.pcr.ac.id </li>
+                                <li class="address"><i class="la la-map"></i> <span>Solaria Living World Pekanbaru,
+                                        Jl. Soekarno - Hatta No.23 Lantai G Unit, Tengkerang Bar., Kec. Marpoyan Damai,
+                                        Kota Pekanbaru, Riau 28282</span> </li>
                             </ul>
                         </div>
                     </div>
+
+
                 </div>
             </div>
-            <!-- end contact -->
+        </div>
+        <!-- end contact -->
 
-            <!-- footer -->
-            <footer>
-                <div class="container">
-                    <p class="text-center">Copyright © All Right Reserved</p>
-                </div>
-            </footer>
-            <!-- end footer -->
+        <!-- footer -->
+        <footer>
+            <div class="container">
+                <p class="text-center">Copyright © All Right Reserved</p>
+            </div>
+        </footer>
+        <!-- end footer -->
 
-            <!-- scripts -->
-            <script src="{{ asset('assetsLanding/js/jquery.min.js') }}"></script>
-            <script src="{{ asset('assetsLanding/js/bootstrap.bundle.min.js') }}"></script>
-            <script src="{{ asset('assetsLanding/js/jquery.filterizr.min.js') }}"></script>
-            <script src="{{ asset('assetsLanding/js/magnific-popup.min.js') }}"></script>
-            <script src="{{ asset('assetsLanding/js/swiper.min.js') }}"></script>
-            <script src="{{ asset('assetsLanding/js/main.js') }}"></script>
+        <!-- scripts -->
+        <script src="{{ asset('assetsLanding/js/jquery.min.js') }}"></script>
+        <script src="{{ asset('assetsLanding/js/bootstrap.bundle.min.js') }}"></script>
+        <script src="{{ asset('assetsLanding/js/jquery.filterizr.min.js') }}"></script>
+        <script src="{{ asset('assetsLanding/js/magnific-popup.min.js') }}"></script>
+        <script src="{{ asset('assetsLanding/js/swiper.min.js') }}"></script>
+        <script src="{{ asset('assetsLanding/js/main.js') }}"></script>
 </body>
 
 </html>
