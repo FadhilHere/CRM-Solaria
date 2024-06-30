@@ -16,7 +16,7 @@
                 <a href="#" class="menu-toggle nav-link has-dropdown"><i
                         data-feather="users"></i><span>Pelanggan</span></a>
                 <ul class="dropdown-menu">
-                    <li><a class="nav-link" href="#">Data Pelanggan</a></li>
+                    <li><a class="nav-link" href="{{ route('users.index') }}">Data Pelanggan</a></li>
                 </ul>
             </li>
             <li class="dropdown">
@@ -53,6 +53,13 @@
                         data-feather="book-open"></i><span>Menu</span></a>
                 <ul class="dropdown-menu">
                     <li><a class="nav-link" href="{{ route('menus.index') }}">Data Menu</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="menu-toggle nav-link has-dropdown"><i
+                        data-feather="message-square"></i><span>Kritik & Saran</span></a>
+                <ul class="dropdown-menu">
+                    <li><a class="nav-link" href="{{ route('contacts.index') }}">Data Kritik & Saran</a></li>
                 </ul>
             </li>
         </ul>

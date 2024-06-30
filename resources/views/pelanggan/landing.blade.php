@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{{ asset('assetsLanding/css/line-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assetsLanding/css/magnific-popup.css') }}">
     <link rel="stylesheet" href="{{ asset('assetsLanding/css/swiper.min.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="{{ asset('assetsLanding/css/style.css') }}">
     <style>
         .img-large {
@@ -24,6 +25,39 @@
 
         .whatsapp-chat-button img:hover {
             transform: scale(1.1);
+        }
+
+        .contact-form {
+            margin: 50px 0;
+        }
+
+        .contact-form h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .contact-form .form-group {
+            margin-bottom: 20px;
+        }
+
+        .contact-form .form-control {
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .contact-form .btn-submit {
+            background-color: #B21B7A;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: block;
+            width: 100%;
+        }
+
+        .contact-form .btn-submit:hover {
+            background-color: #9A176B;
         }
     </style>
 </head>
@@ -41,6 +75,8 @@
 
     <!-- navbar -->
     @include('pelanggan.navbar')
+    <!-- end navbar -->
+
     <a href="https://wa.me/6282284945643" target="_blank" class="whatsapp-chat-button"
         style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
         <img src="{{ asset('assetsLanding/img/whatsapp.png') }}" alt="Chat via WhatsApp"
@@ -60,13 +96,27 @@
                                 klasik hingga inovasi baru yang siap memanjakan lidah Anda. Solaria, tempat makan ideal
                                 untuk setiap kesempatan.</p>
                             <ul>
-                                <li><a
-                                        href="https://www.facebook.com/p/Solaria-Indonesia-100057582874563/?locale=id_ID"><i
-                                            class="la la-facebook"></i></a></li>
-                                <li><a href="https://x.com/SolariaID"><i class="la la-twitter"></i></a></li>
-                                <li><a href="https://www.instagram.com/solaria.indonesia"><i
-                                            class="la la-instagram"></i></a></li>
-
+                                <li>
+                                    <a
+                                        href="https://www.facebook.com/p/Solaria-Indonesia-100057582874563/?locale=id_ID">
+                                        <i class="la la-facebook"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://x.com/SolariaID">
+                                        <i class="la la-twitter"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.instagram.com/solaria.indonesia">
+                                        <i class="la la-instagram"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.tiktok.com/@solaria.indonesia">
+                                        <i class="fab fa-tiktok"></i>
+                                    </a>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -80,6 +130,8 @@
         </div>
     </div>
     <!-- end intro -->
+
+
 
     <!-- about -->
     <div id="about" class="about">
@@ -200,163 +252,38 @@
                             <li data-filter="all" class="active">
                                 <span>Show All</span>
                             </li>
-                            <li data-filter="1">
+                            <li data-filter="Western">
                                 <span>Western</span>
                             </li>
-                            <li data-filter="2">
+                            <li data-filter="Chinese">
                                 <span>Chinese</span>
                             </li>
-                            <li data-filter="3">
+                            <li data-filter="Local">
                                 <span>Local</span>
                             </li>
                         </ul>
                     </div>
                     <div class="row filtr-container">
-                        <div class="col-md-4 col-sm-12 col-xs-12 col-12 filtr-item" data-category="1">
-                            <div class="content">
-                                <a href="{{ asset('assetsLanding/img/fish-and-chips.png') }}" class="product-popup">
-                                    <img src="{{ asset('assetsLanding/img/fish-and-chips.png') }}" alt="">
-                                </a>
-                                <h5>Fish & Chips + Kentang</h5>
-                                <ul>
-                                    <li><i class="la la-star"></i></li>
-                                    <li><i class="la la-star"></i></li>
-                                    <li><i class="la la-star"></i></li>
-                                    <li><i class="la la-star"></i></li>
-                                    <li><i class="la la-star"></i></li>
-                                </ul>
-                                <span>Rp. 53.000</span>
+                        @foreach ($menus as $menu)
+                            <div class="col-md-4 col-sm-12 col-xs-12 col-12 filtr-item"
+                                data-category="{{ $menu->category }}">
+                                <div class="content">
+                                    <a href="{{ asset('storage/' . $menu->picture) }}" class="product-popup">
+                                        <img src="{{ asset('storage/' . $menu->picture) }}"
+                                            alt="{{ $menu->name }}">
+                                    </a>
+                                    <h5>{{ $menu->name }}</h5>
+                                    <ul>
+                                        <li><i class="la la-star"></i></li>
+                                        <li><i class="la la-star"></i></li>
+                                        <li><i class="la la-star"></i></li>
+                                        <li><i class="la la-star"></i></li>
+                                        <li><i class="la la-star"></i></li>
+                                    </ul>
+                                    <span>Rp. {{ number_format($menu->price, 0, ',', '.') }}</span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-4 col-sm-12 col-xs-12 col-12 filtr-item" data-category="1">
-                            <div class="content">
-                                <a href="{{ asset('assetsLanding/img/spagheti.png') }}" class="product-popup">
-                                    <img src="{{ asset('assetsLanding/img/spagheti.png') }}" alt="">
-                                </a>
-                                <h5>Spaghetti</h5>
-                                <ul>
-                                    <li><i class="la la-star"></i></li>
-                                    <li><i class="la la-star"></i></li>
-                                    <li><i class="la la-star"></i></li>
-                                    <li><i class="la la-star"></i></li>
-                                    <li><i class="la la-star"></i></li>
-                                </ul>
-                                <span>Rp. 35.000</span>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-12 col-xs-12 col-12 filtr-item" data-category="1">
-                            <div class="content">
-                                <a href="{{ asset('assetsLanding/img/cordon-bleu.png') }}" class="product-popup">
-                                    <img src="{{ asset('assetsLanding/img/cordon-bleu.png') }}" alt="">
-                                </a>
-                                <h5>Chicken Cordon Bleu + Kentang</h5>
-                                <ul>
-                                    <li><i class="la la-star"></i></li>
-                                    <li><i class="la la-star"></i></li>
-                                    <li><i class="la la-star"></i></li>
-                                    <li><i class="la la-star"></i></li>
-                                    <li><i class="la la-star"></i></li>
-                                </ul>
-                                <span>Rp. 47.000</span>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-12 col-xs-12 col-12 filtr-item" data-category="2">
-                            <div class="content">
-                                <a href="{{ asset('assetsLanding/img/fuyunghai.png') }}" class="product-popup">
-                                    <img src="{{ asset('assetsLanding/img/fuyunghai.png') }}" alt="">
-                                </a>
-                                <h5>Nasi Fu Yung Hai</h5>
-                                <ul>
-                                    <li><i class="la la-star"></i></li>
-                                    <li><i class="la la-star"></i></li>
-                                    <li><i class="la la-star"></i></li>
-                                    <li><i class="la la-star"></i></li>
-                                    <li><i class="la la-star"></i></li>
-                                </ul>
-                                <span>Rp. 42.000</span>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-12 col-xs-12 col-12 filtr-item" data-category="2">
-                            <div class="content">
-                                <a href="{{ asset('assetsLanding/img/fuyunghai.png') }}" class="product-popup">
-                                    <img src="{{ asset('assetsLanding/img/fuyunghai.png') }}" alt="">
-                                </a>
-                                <h5>Nasi Fu Yung Hai</h5>
-                                <ul>
-                                    <li><i class="la la-star"></i></li>
-                                    <li><i class="la la-star"></i></li>
-                                    <li><i class="la la-star"></i></li>
-                                    <li><i class="la la-star"></i></li>
-                                    <li><i class="la la-star"></i></li>
-                                </ul>
-                                <span>Rp. 42.000</span>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-12 col-xs-12 col-12 filtr-item" data-category="2">
-                            <div class="content">
-                                <a href="{{ asset('assetsLanding/img/fuyunghai.png') }}" class="product-popup">
-                                    <img src="{{ asset('assetsLanding/img/fuyunghai.png') }}" alt="">
-                                </a>
-                                <h5>Nasi Fu Yung Hai</h5>
-                                <ul>
-                                    <li><i class="la la-star"></i></li>
-                                    <li><i class="la la-star"></i></li>
-                                    <li><i class="la la-star"></i></li>
-                                    <li><i class="la la-star"></i></li>
-                                    <li><i class="la la-star"></i></li>
-                                </ul>
-                                <span>Rp. 42.000</span>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-12 col-xs-12 col-12 filtr-item" data-category="3">
-                            <div class="content">
-                                <a href="{{ asset('assetsLanding/img/nasgor-petai.png') }}" class="product-popup">
-                                    <img src="{{ asset('assetsLanding/img/nasgor-petai.png') }}" alt="">
-                                </a>
-                                <h5>Nasi Goreng Petai</h5>
-                                <ul>
-                                    <li><i class="la la-star"></i></li>
-                                    <li><i class="la la-star"></i></li>
-                                    <li><i class="la la-star"></i></li>
-                                    <li><i class="la la-star"></i></li>
-                                    <li><i class="la la-star"></i></li>
-                                </ul>
-                                <span>Rp. 42.000</span>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-12 col-xs-12 col-12 filtr-item" data-category="3">
-                            <div class="content">
-                                <a href="{{ asset('assetsLanding/img/nasgor-petai.png') }}" class="product-popup">
-                                    <img src="{{ asset('assetsLanding/img/nasgor-petai.png') }}" alt="">
-                                </a>
-                                <h5>Nasi Goreng Petai</h5>
-                                <ul>
-                                    <li><i class="la la-star"></i></li>
-                                    <li><i class="la la-star"></i></li>
-                                    <li><i class="la la-star"></i></li>
-                                    <li><i class="la la-star"></i></li>
-                                    <li><i class="la la-star"></i></li>
-                                </ul>
-                                <span>Rp. 42.000</span>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-12 col-xs-12 col-12 filtr-item" data-category="3">
-                            <div class="content">
-                                <a href="{{ asset('assetsLanding/img/nasgor-petai.png') }}" class="product-popup">
-                                    <img src="{{ asset('assetsLanding/img/nasgor-petai.png') }}" alt="">
-                                </a>
-                                <h5>Nasi Goreng Petai</h5>
-                                <ul>
-                                    <li><i class="la la-star"></i></li>
-                                    <li><i class="la la-star"></i></li>
-                                    <li><i class="la la-star"></i></li>
-                                    <li><i class="la la-star"></i></li>
-                                    <li><i class="la la-star"></i></li>
-                                </ul>
-                                <span>Rp. 42.000</span>
-                            </div>
-                        </div>
-                        <!-- Additional product entries can be added similarly -->
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -395,8 +322,7 @@
                     <div class="col-md-4">
                         <div class="the-title"><span></span>FAQ</div>
                         <h2>Frequently Asked Questions</h2>
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia eaque odit, iusto autem vel
-                            ullam ut! Totam voum.</p>
+                        <p>Temukan jawaban dari pertanyaan yang sering diajukan mengenai Solaria di sini.</p>
                         <button class="button">Contact us</button>
                     </div>
                     <div class="col-md">
@@ -406,24 +332,106 @@
                                     <button class="accordion-button" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#collapseOne" aria-expanded="true"
                                         aria-controls="collapseOne">
-                                        Can order bulk food?
+                                        Apakah Solaria menyediakan layanan pesan antar?
                                     </button>
                                 </h2>
                                 <div id="collapseOne" class="accordion-collapse collapse show"
                                     aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
-                                        <strong>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</strong> Sed
-                                        non pretium turpis. Aenean maximus ultrices lorem, at auctor velit cursus in.
+                                        <strong>Ya, Solaria menyediakan layanan pesan antar.</strong> Anda dapat memesan
+                                        makanan melalui aplikasi pesan antar favorit Anda atau langsung dari situs web
+                                        kami.
                                     </div>
                                 </div>
                             </div>
-                            <!-- Additional accordion items -->
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingTwo">
+                                    <button class="accordion-button collapsed" type="button"
+                                        data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false"
+                                        aria-controls="collapseTwo">
+                                        Bagaimana cara melakukan reservasi di Solaria?
+                                    </button>
+                                </h2>
+                                <div id="collapseTwo" class="accordion-collapse collapse"
+                                    aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                        <strong>Untuk melakukan reservasi di Solaria,</strong> Anda bisa menghubungi
+                                        kami melalui nomor telepon yang tersedia di bagian kontak atau menggunakan fitur
+                                        reservasi di situs web kami.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingThree">
+                                    <button class="accordion-button collapsed" type="button"
+                                        data-bs-toggle="collapse" data-bs-target="#collapseThree"
+                                        aria-expanded="false" aria-controls="collapseThree">
+                                        Apakah Solaria memiliki pilihan menu vegetarian?
+                                    </button>
+                                </h2>
+                                <div id="collapseThree" class="accordion-collapse collapse"
+                                    aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                        <strong>Ya, kami memiliki beberapa pilihan menu vegetarian</strong> yang
+                                        dirancang untuk memenuhi kebutuhan pelanggan yang tidak mengonsumsi daging.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingFour">
+                                    <button class="accordion-button collapsed" type="button"
+                                        data-bs-toggle="collapse" data-bs-target="#collapseFour"
+                                        aria-expanded="false" aria-controls="collapseFour">
+                                        Apakah Solaria menyediakan layanan katering untuk acara?
+                                    </button>
+                                </h2>
+                                <div id="collapseFour" class="accordion-collapse collapse"
+                                    aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                        <strong>Ya, Solaria menyediakan layanan katering untuk berbagai acara.</strong>
+                                        Anda dapat menghubungi kami untuk informasi lebih lanjut mengenai menu dan paket
+                                        katering yang tersedia. Kami akan dengan senang hati membantu memenuhi kebutuhan
+                                        acara Anda.
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <!-- end faq -->
+        <!-- contact form -->
+        <div class="contact-form">
+            <div class="container">
+                <h2>KONTAK KAMI</h2>
+                <p class="text-center">Sampaikan kritik, saran, pertanyaan, bagi cerita / pengalaman Anda dengan
+                    Solaria. Masukan Anda sangat berarti untuk meningkatkan pelayanan kami.</p>
+                <form action="{{ route('contact.submit') }}" method="POST">
+                    @csrf
+                    <div class="form-group">
+                        <label for="name">Nama (Wajib diisi)</label>
+                        <input type="text" id="name" name="name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email (Wajib diisi)</label>
+                        <input type="email" id="email" name="email" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone_number">Nomor Telepon</label>
+                        <input type="text" id="phone_number" name="phone_number" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Pesan Anda (Wajib diisi)</label>
+                        <textarea id="message" name="message" class="form-control" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit">Kirim</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- end contact form -->
 
         <!-- contact -->
         <div id="contact" class="contact">
