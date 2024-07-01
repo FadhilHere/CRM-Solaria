@@ -1,6 +1,6 @@
 @extends('admin.layouts.index')
 
-@section('title', 'Data User')
+@section('title', 'Data Pelanggan')
 
 @section('main')
     <div class="row">
@@ -25,6 +25,8 @@
                                     <th>Date of Birth</th>
                                     <th>Role</th>
                                     <th>Preferences</th>
+                                    <th>Total Belanja</th>
+                                    <th>Level Loyalitas</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -44,6 +46,12 @@
                                                     ,
                                                 @endif
                                             @endforeach
+                                        </td>
+                                        <td>Rp. {{ number_format($user->total_spent, 0, ',', '.') }}</td>
+                                        <td>
+                                            <span class="badge badge-{{ strtolower($user->loyalty_level) }}">
+                                                {{ $user->loyalty_level }}
+                                            </span>
                                         </td>
                                         <td>
                                             <a href="#" class="btn btn-icon btn-info" data-toggle="modal"
@@ -216,6 +224,14 @@
                             <label>Preferensi</label>
                             <input type="text" class="form-control" id="detailPreferences" readonly>
                         </div>
+                        <div class="form-group">
+                            <label>Total Belanja</label>
+                            <input type="text" class="form-control" id="detailTotalSpent" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Level Loyalitas</label>
+                            <input type="text" class="form-control" id="detailLoyaltyLevel" readonly>
+                        </div>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
                     </form>
                 </div>
@@ -231,6 +247,22 @@
         href="{{ asset('assets/bundles/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css') }}">
     <!-- Prism CSS -->
     <link rel="stylesheet" href="{{ asset('assets/bundles/prism/prism.css') }}">
+    <style>
+        .badge-platinum {
+            background-color: #e5e4e2;
+            color: black;
+        }
+
+        .badge-gold {
+            background-color: gold;
+            color: black;
+        }
+
+        .badge-silver {
+            background-color: silver;
+            color: black;
+        }
+    </style>
 @endsection
 
 @section('js')
@@ -384,6 +416,9 @@
 
                     let preferences = data.preferences.map(p => p.name).join(', ');
                     $('#detailPreferences').val(preferences);
+                    $('#detailTotalSpent').val('Rp. ' + parseInt(data.total_spent)
+                .toLocaleString());
+                    $('#detailLoyaltyLevel').val(data.loyalty_level);
                 }).fail(function() {
                     swal("Error", "Data tidak ditemukan atau terjadi kesalahan", "error");
                 });

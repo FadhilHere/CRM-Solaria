@@ -13,4 +13,14 @@ class LandingPageController extends Controller
         $menus = Menu::all();
         return view('pelanggan.landing', compact('menus'));
     }
+    public function show($id)
+    {
+        $menu = Menu::findOrFail($id);
+        return view('pelanggan.menu_detail', compact('menu'));
+    }
+    public function profile()
+    {
+        return view('pelanggan.profile');
+    }
+
 }

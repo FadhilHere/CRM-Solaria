@@ -30,8 +30,8 @@
                 <a href="#" class="menu-toggle nav-link has-dropdown"><i
                         data-feather="shopping-cart"></i><span>Pesanan</span></a>
                 <ul class="dropdown-menu">
-                    <li><a class="nav-link" href="#">Data Pesanan</a></li>
-                    <li><a class="nav-link" href="#">Data Detail Pesanan</a></li>
+                    <li><a class="nav-link" href="{{ route('orders.index') }}">Data Pesanan</a></li>
+                    <li><a class="nav-link" href="{{ route('order-details.index') }}">Data Detail Pesanan</a></li>
                 </ul>
             </li>
             <li class="dropdown">

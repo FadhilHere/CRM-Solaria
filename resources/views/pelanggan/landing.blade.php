@@ -1,68 +1,7 @@
-<!DOCTYPE html>
-<html lang="zxx">
+@extends('pelanggan.layouts.index')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="{{ asset('assetsLanding/img/Solaria.png') }}">
-    <title>Solaria</title>
-    <link rel="stylesheet" href="{{ asset('assetsLanding/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assetsLanding/css/line-awesome.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assetsLanding/css/magnific-popup.css') }}">
-    <link rel="stylesheet" href="{{ asset('assetsLanding/css/swiper.min.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="{{ asset('assetsLanding/css/style.css') }}">
-    <style>
-        .img-large {
-            width: 700px;
-            height: 700px;
-        }
-
-        .whatsapp-chat-button img {
-            transition: transform 0.3s ease;
-            cursor: pointer;
-        }
-
-        .whatsapp-chat-button img:hover {
-            transform: scale(1.1);
-        }
-
-        .contact-form {
-            margin: 50px 0;
-        }
-
-        .contact-form h2 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .contact-form .form-group {
-            margin-bottom: 20px;
-        }
-
-        .contact-form .form-control {
-            border-radius: 5px;
-            border: 1px solid #ccc;
-        }
-
-        .contact-form .btn-submit {
-            background-color: #B21B7A;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            display: block;
-            width: 100%;
-        }
-
-        .contact-form .btn-submit:hover {
-            background-color: #9A176B;
-        }
-    </style>
-</head>
-
-<body>
+@section('title', 'Solaria')
+@section('main')
     <!-- loader -->
     <div class="loader">
         <div class="loading">
@@ -73,14 +12,9 @@
     </div>
     <!-- end loader -->
 
-    <!-- navbar -->
-    @include('pelanggan.navbar')
-    <!-- end navbar -->
-
     <a href="https://wa.me/6282284945643" target="_blank" class="whatsapp-chat-button"
         style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
-        <img src="{{ asset('assetsLanding/img/whatsapp.png') }}" alt="Chat via WhatsApp"
-            style="width: 60px; height: 60px;">
+        <img src="{{ asset('assetsLanding/img/whatsapp.png') }}" alt="Chat via WhatsApp" style="width: 60px; height: 60px;">
     </a>
 
     <!-- intro -->
@@ -97,8 +31,7 @@
                                 untuk setiap kesempatan.</p>
                             <ul>
                                 <li>
-                                    <a
-                                        href="https://www.facebook.com/p/Solaria-Indonesia-100057582874563/?locale=id_ID">
+                                    <a href="https://www.facebook.com/p/Solaria-Indonesia-100057582874563/?locale=id_ID">
                                         <i class="la la-facebook"></i>
                                     </a>
                                 </li>
@@ -130,8 +63,6 @@
         </div>
     </div>
     <!-- end intro -->
-
-
 
     <!-- about -->
     <div id="about" class="about">
@@ -268,9 +199,8 @@
                             <div class="col-md-4 col-sm-12 col-xs-12 col-12 filtr-item"
                                 data-category="{{ $menu->category }}">
                                 <div class="content">
-                                    <a href="{{ asset('storage/' . $menu->picture) }}" class="product-popup">
-                                        <img src="{{ asset('storage/' . $menu->picture) }}"
-                                            alt="{{ $menu->name }}">
+                                    <a href="{{ route('menus.detail', $menu->id) }}">
+                                        <img src="{{ asset('storage/' . $menu->picture) }}" alt="{{ $menu->name }}">
                                     </a>
                                     <h5>{{ $menu->name }}</h5>
                                     <ul>
@@ -330,8 +260,7 @@
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="headingOne">
                                     <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#collapseOne" aria-expanded="true"
-                                        aria-controls="collapseOne">
+                                        data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                         Apakah Solaria menyediakan layanan pesan antar?
                                     </button>
                                 </h2>
@@ -346,14 +275,13 @@
                             </div>
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="headingTwo">
-                                    <button class="accordion-button collapsed" type="button"
-                                        data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false"
-                                        aria-controls="collapseTwo">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                                         Bagaimana cara melakukan reservasi di Solaria?
                                     </button>
                                 </h2>
-                                <div id="collapseTwo" class="accordion-collapse collapse"
-                                    aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                                    data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
                                         <strong>Untuk melakukan reservasi di Solaria,</strong> Anda bisa menghubungi
                                         kami melalui nomor telepon yang tersedia di bagian kontak atau menggunakan fitur
@@ -363,9 +291,9 @@
                             </div>
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="headingThree">
-                                    <button class="accordion-button collapsed" type="button"
-                                        data-bs-toggle="collapse" data-bs-target="#collapseThree"
-                                        aria-expanded="false" aria-controls="collapseThree">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseThree" aria-expanded="false"
+                                        aria-controls="collapseThree">
                                         Apakah Solaria memiliki pilihan menu vegetarian?
                                     </button>
                                 </h2>
@@ -379,14 +307,14 @@
                             </div>
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="headingFour">
-                                    <button class="accordion-button collapsed" type="button"
-                                        data-bs-toggle="collapse" data-bs-target="#collapseFour"
-                                        aria-expanded="false" aria-controls="collapseFour">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseFour" aria-expanded="false"
+                                        aria-controls="collapseFour">
                                         Apakah Solaria menyediakan layanan katering untuk acara?
                                     </button>
                                 </h2>
-                                <div id="collapseFour" class="accordion-collapse collapse"
-                                    aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+                                <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
+                                    data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
                                         <strong>Ya, Solaria menyediakan layanan katering untuk berbagai acara.</strong>
                                         Anda dapat menghubungi kami untuk informasi lebih lanjut mengenai menu dan paket
@@ -463,22 +391,55 @@
             </div>
         </div>
         <!-- end contact -->
+    @endsection
 
-        <!-- footer -->
-        <footer>
-            <div class="container">
-                <p class="text-center">Copyright © All Right Reserved</p>
-            </div>
-        </footer>
-        <!-- end footer -->
+    @section('css')
+        <style>
+            .img-large {
+                width: 700px;
+                height: 700px;
+            }
 
-        <!-- scripts -->
-        <script src="{{ asset('assetsLanding/js/jquery.min.js') }}"></script>
-        <script src="{{ asset('assetsLanding/js/bootstrap.bundle.min.js') }}"></script>
-        <script src="{{ asset('assetsLanding/js/jquery.filterizr.min.js') }}"></script>
-        <script src="{{ asset('assetsLanding/js/magnific-popup.min.js') }}"></script>
-        <script src="{{ asset('assetsLanding/js/swiper.min.js') }}"></script>
-        <script src="{{ asset('assetsLanding/js/main.js') }}"></script>
-</body>
+            .whatsapp-chat-button img {
+                transition: transform 0.3s ease;
+                cursor: pointer;
+            }
 
-</html>
+            .whatsapp-chat-button img:hover {
+                transform: scale(1.1);
+            }
+
+            .contact-form {
+                margin: 50px 0;
+            }
+
+            .contact-form h2 {
+                text-align: center;
+                margin-bottom: 20px;
+            }
+
+            .contact-form .form-group {
+                margin-bottom: 20px;
+            }
+
+            .contact-form .form-control {
+                border-radius: 5px;
+                border: 1px solid #ccc;
+            }
+
+            .contact-form .btn-submit {
+                background-color: #B21B7A;
+                color: white;
+                border: none;
+                padding: 10px 20px;
+                border-radius: 5px;
+                cursor: pointer;
+                display: block;
+                width: 100%;
+            }
+
+            .contact-form .btn-submit:hover {
+                background-color: #9A176B;
+            }
+        </style>
+    @endsection

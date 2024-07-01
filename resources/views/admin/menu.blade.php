@@ -21,6 +21,7 @@
                                     <th>Picture</th>
                                     <th>Name</th>
                                     <th>Price</th>
+                                    <th>Description</th>
                                     <th>Category</th>
                                     <th>Action</th>
                                 </tr>
@@ -33,6 +34,7 @@
                                                 width="50"></td>
                                         <td>{{ $menu->name }}</td>
                                         <td>Rp. {{ $menu->price }}</td>
+                                        <td>{{ $menu->description }}</td>
                                         <td>{{ $menu->category }}</td>
                                         <td>
                                             <a href="#" class="btn btn-icon btn-info" data-toggle="modal"
@@ -84,6 +86,10 @@
                             <input type="number" class="form-control" name="price" required>
                         </div>
                         <div class="form-group">
+                            <label>Description</label>
+                            <textarea class="form-control" name="description" required></textarea>
+                        </div>
+                        <div class="form-group">
                             <label>Category</label>
                             <select class="form-control" name="category" required>
                                 <option value="" disabled selected>Select Category</option>
@@ -126,6 +132,10 @@
                             <input type="number" class="form-control" name="price" id="editPrice" required>
                         </div>
                         <div class="form-group">
+                            <label>Description</label>
+                            <textarea class="form-control" name="description" id="editDescription" required></textarea>
+                        </div>
+                        <div class="form-group">
                             <label>Category</label>
                             <select class="form-control" name="category" id="editCategory" required>
                                 <option value="" disabled>Select Category</option>
@@ -165,6 +175,10 @@
                         <div class="form-group">
                             <label>Price</label>
                             <input type="text" class="form-control" id="detailPrice" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea class="form-control" id="detailDescription" rows="5" readonly></textarea>
                         </div>
                         <div class="form-group">
                             <label>Category</label>
@@ -245,6 +259,7 @@
                     $('#editMenuForm').attr('action', '/menus/' + id);
                     $('#editName').val(data.name);
                     $('#editPrice').val(data.price);
+                    $('#editDescription').val(data.description);
                     $('#editCategory').val(data.category);
                 });
             });
@@ -323,6 +338,7 @@
                     $('#detailPicture').attr('src', '/storage/' + data.picture);
                     $('#detailName').val(data.name);
                     $('#detailPrice').val(data.price);
+                    $('#detailDescription').val(data.description);
                     $('#detailCategory').val(data.category);
                 }).fail(function() {
                     swal("Error", "Data tidak ditemukan atau terjadi kesalahan", "error");

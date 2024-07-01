@@ -1,13 +1,22 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
+// Auth
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\MenuController;
+
+// Pelanggan
 use App\Http\Controllers\Pelanggan\LandingPageController;
 use App\Http\Controllers\Pelanggan\ContactController;
+use App\Http\Controllers\Pelanggan\CartController;
+
+// Admin
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\OrderDetailController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\MenuController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +50,17 @@ Route::middleware('checkRole:admin')->group(function () {
     Route::put('/menus/{id}', [MenuController::class, 'update'])->name('menus.update');
     Route::delete('/menus/{id}', [MenuController::class, 'destroy'])->name('menus.destroy');
 
+    // Routes untuk Orders
+    Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
+    Route::get('/orders/{id}', [OrderController::class, 'show'])->name('orders.show');
+    Route::delete('/orders/{id}', [OrderController::class, 'destroy'])->name('orders.destroy');
+    Route::put('orders/{id}/change-status', [OrderController::class, 'changeStatus'])->name('orders.changeStatus');
+
+    // Routes untuk Order Details
+    Route::get('/order-details', [OrderDetailController::class, 'index'])->name('order-details.index');
+    Route::get('/order-details/{id}', [OrderDetailController::class, 'show'])->name('order-details.show');
+
+
     // Routes for Kritik & Saran
     Route::get('/contacts', [ContactController::class, 'index'])->name('contacts.index');
     Route::get('/contacts/{id}', [ContactController::class, 'show'])->name('contacts.show');
@@ -56,10 +76,12 @@ Route::middleware('checkRole:admin')->group(function () {
 
 // Route untuk halaman pelanggan, dilindungi oleh middleware checkRole:pelanggan
 Route::middleware('checkRole:pelanggan')->group(function () {
-    Route::get('/landing', [LandingPageController::class, 'index'])->name('pelanggan.landing');
+    Route::get('/', [LandingPageController::class, 'index'])->name('pelanggan.landing');
+    Route::post('/orders', [OrderController::class, 'store'])->name('orders.store');
+    Route::get('/menus/{id}/detail', [LandingPageController::class, 'show'])->name('menus.detail');
+    Route::post('/cart/{id}/add', [CartController::class, 'add'])->name('cart.add');
+    Route::get('/cart', [CartController::class, 'viewCart'])->name('cart.view');
+    Route::post('/cart/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
+    Route::get('/profile', [LandingPageController::class, 'profile'])->name('profile');
 });
 
-// Route untuk halaman unauthorized
-Route::get('/unauthorized', function () {
-    return view('unauthorized');
-})->name('unauthorized');

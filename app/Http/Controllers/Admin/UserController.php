@@ -11,7 +11,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::with('preferences')->get();
+        $users = User::with('preferences')->orderBy('created_at', 'desc')->get();
         return view('admin.user', compact('users'));
     }
 
