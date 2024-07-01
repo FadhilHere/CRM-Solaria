@@ -45,7 +45,7 @@
                 <a href="#" class="menu-toggle nav-link has-dropdown"><i
                         data-feather="tag"></i><span>Promo</span></a>
                 <ul class="dropdown-menu">
-                    <li><a class="nav-link" href="#">Data Promo</a></li>
+                    <li><a class="nav-link" href="{{ route('promos.index') }}">Data Promo</a></li>
                 </ul>
             </li>
             <li class="dropdown">

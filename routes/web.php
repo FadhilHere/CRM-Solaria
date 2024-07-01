@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\OrderDetailController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\MenuController;
+use App\Http\Controllers\Admin\PromoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,7 +61,6 @@ Route::middleware('checkRole:admin')->group(function () {
     Route::get('/order-details', [OrderDetailController::class, 'index'])->name('order-details.index');
     Route::get('/order-details/{id}', [OrderDetailController::class, 'show'])->name('order-details.show');
 
-
     // Routes for Kritik & Saran
     Route::get('/contacts', [ContactController::class, 'index'])->name('contacts.index');
     Route::get('/contacts/{id}', [ContactController::class, 'show'])->name('contacts.show');
@@ -72,6 +72,14 @@ Route::middleware('checkRole:admin')->group(function () {
     Route::get('/users/{id}', [UserController::class, 'show'])->name('users.show');
     Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update');
     Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+
+    // Routes for Promo
+    Route::get('promos', [PromoController::class, 'index'])->name('promos.index');
+    Route::get('promos/create', [PromoController::class, 'create'])->name('promos.create');
+    Route::post('promos', [PromoController::class, 'store'])->name('promos.store');
+    Route::get('promos/{id}/edit', [PromoController::class, 'edit'])->name('promos.edit');
+    Route::put('promos/{id}', [PromoController::class, 'update'])->name('promos.update');
+    Route::delete('promos/{id}', [PromoController::class, 'destroy'])->name('promos.destroy');
 });
 
 // Route untuk halaman pelanggan, dilindungi oleh middleware checkRole:pelanggan
@@ -79,9 +87,11 @@ Route::middleware('checkRole:pelanggan')->group(function () {
     Route::get('/', [LandingPageController::class, 'index'])->name('pelanggan.landing');
     Route::post('/orders', [OrderController::class, 'store'])->name('orders.store');
     Route::get('/menus/{id}/detail', [LandingPageController::class, 'show'])->name('menus.detail');
+
     Route::post('/cart/{id}/add', [CartController::class, 'add'])->name('cart.add');
     Route::get('/cart', [CartController::class, 'viewCart'])->name('cart.view');
     Route::post('/cart/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
+    Route::post('/cart/calculate-discount', [CartController::class, 'calculateDiscount'])->name('cart.calculate-discount');
+
     Route::get('/profile', [LandingPageController::class, 'profile'])->name('profile');
 });
-

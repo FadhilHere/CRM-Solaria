@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Menu;
 use App\Models\Order;
 use App\Models\OrderDetail;
+use App\Models\Promo;
 use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
@@ -42,13 +43,16 @@ class CartController extends Controller
     public function viewCart()
     {
         $cart = session()->get('cart', []);
-        return view('pelanggan.cart', compact('cart'));
+        $promos = Promo::all();
+        return view('pelanggan.cart', compact('cart', 'promos'));
     }
 
     public function checkout(Request $request)
     {
         $user = Auth::user();
         $cart = session()->get('cart', []);
+        $promoId = $request->input('promo_id');
+        $promo = Promo::find($promoId);
 
         if (count($cart) === 0) {
             return redirect()->back()->with('error', 'Keranjang belanja Anda kosong.');
@@ -60,12 +64,23 @@ class CartController extends Controller
             $totalPrice += $item['price'] * $item['quantity'];
         }
 
+        // Terapkan diskon promo jika ada
+        $promoDiscount = 0;
+        if ($promo) {
+            $promoDiscount = $totalPrice * ($promo->percentage / 100);
+            $totalPrice -= $promoDiscount;
+        }
+
         // Terapkan diskon berdasarkan level loyalitas
+        $loyaltyDiscount = 0;
         if ($user->loyalty_level == 'Silver') {
+            $loyaltyDiscount = $totalPrice * 0.05;
             $totalPrice *= 0.95;
         } elseif ($user->loyalty_level == 'Gold') {
+            $loyaltyDiscount = $totalPrice * 0.10;
             $totalPrice *= 0.90;
         } elseif ($user->loyalty_level == 'Platinum') {
+            $loyaltyDiscount = $totalPrice * 0.15;
             $totalPrice *= 0.85;
         }
 
@@ -96,7 +111,48 @@ class CartController extends Controller
         $user->updateLoyaltyLevel();
 
         session()->forget('cart');
+        session()->put('checkout_details', [
+            'total_price' => $totalPrice,
+            'promo_discount' => $promoDiscount,
+            'loyalty_discount' => $loyaltyDiscount,
+            'promo' => $promo ? $promo->name : null,
+        ]);
 
         return redirect()->route('pelanggan.landing')->with('success', 'Pesanan berhasil dibuat.');
     }
+    public function calculateDiscount(Request $request)
+    {
+        $total = $request->input('total');
+        $promoId = $request->input('promo_id');
+        $promo = Promo::find($promoId);
+        $user = Auth::user();
+
+        $promoDiscount = 0;
+        if ($promo) {
+            $promoDiscount = $total * ($promo->percentage / 100);
+        }
+
+        // Terapkan diskon berdasarkan level loyalitas
+        $loyaltyDiscount = 0;
+        if ($user->loyalty_level == 'Silver') {
+            $loyaltyDiscount = $total * 0.05;
+            $finalTotal = $total - $promoDiscount - $loyaltyDiscount;
+        } elseif ($user->loyalty_level == 'Gold') {
+            $loyaltyDiscount = $total * 0.10;
+            $finalTotal = $total - $promoDiscount - $loyaltyDiscount;
+        } elseif ($user->loyalty_level == 'Platinum') {
+            $loyaltyDiscount = $total * 0.15;
+            $finalTotal = $total - $promoDiscount - $loyaltyDiscount;
+        } else {
+            $finalTotal = $total - $promoDiscount;
+        }
+
+        return response()->json([
+            'success' => true,
+            'promo_discount' => number_format($promoDiscount, 0, ',', '.'),
+            'member_discount' => number_format($loyaltyDiscount, 0, ',', '.'),
+            'final_total' => number_format($finalTotal, 0, ',', '.'),
+        ]);
+    }
+
 }

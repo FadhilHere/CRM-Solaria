@@ -38,16 +38,35 @@
                             <td>{{ $item['quantity'] }}</td>
                             <td>Rp. {{ number_format($item['price'], 0, ',', '.') }}</td>
                             <td>Rp. {{ number_format($itemTotal, 0, ',', '.') }}</td>
-                        </tr>
                     @endforeach
                 </tbody>
             </table>
-            <div class="d-flex justify-content-between align-items-center">
-                <h4>Total Bayar: Rp. {{ number_format($total, 0, ',', '.') }}</h4>
-                <form action="{{ route('cart.checkout') }}" method="POST">
-                    @csrf
-                    <button type="submit" class="btn custom-btn">Bayar</button>
-                </form>
+
+            <form id="checkout-form" action="{{ route('cart.checkout') }}" method="POST">
+                @csrf
+                <div class="d-flex justify-content-between align-items-center">
+                    <h4>Total Belanja: Rp. {{ number_format($total, 0, ',', '.') }}</h4>
+                    <div class="form-group">
+                        <label for="promo_id">Pilih Promo:</label>
+                        <select name="promo_id" id="promo_id" class="form-control">
+                            <option value="">Tidak menggunakan promo</option>
+                            @foreach ($promos as $promo)
+                                <option value="{{ $promo->id }}">{{ $promo->name }} - {{ $promo->percentage }}%
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <button type="submit" id="checkout-button" class="btn custom-btn">Bayar</button>
+                </div>
+            </form>
+
+            <div id="discount-details" class="mt-3" style="display: none;">
+                <h4>Rincian Diskon:</h4>
+                <p>Total Belanja: Rp. {{ number_format($total, 0, ',', '.') }}</p>
+                <p id="promo-discount" style="display: none;">Diskon Promo: Rp. <span></span></p>
+                <p>Diskon Member: Rp. <span id="member-discount"></span></p>
+                <hr>
+                <h4>Total Bayar: Rp. <span id="final-total"></span></h4>
             </div>
         @else
             <p>Keranjang belanja Anda kosong.</p>
@@ -70,7 +89,6 @@
             background-color: #B21B7A;
             border-color: #B21B7A;
             color: #fff;
-            /* Tambahkan warna teks putih */
         }
 
         .custom-btn:hover {
@@ -81,7 +99,40 @@
 @endsection
 
 @section('js')
+
 @endsection
 
 @section('script')
+    <script>
+        $(document).ready(function() {
+            $('#promo_id').change(function() {
+                const promoId = $(this).val();
+                if (promoId) {
+                    $.ajax({
+                        url: '{{ route('cart.calculate-discount') }}',
+                        method: 'POST',
+                        data: {
+                            _token: '{{ csrf_token() }}',
+                            promo_id: promoId,
+                            total: {{ $total }}
+                        },
+                        success: function(response) {
+                            if (response.success) {
+                                $('#discount-details').show();
+                                $('#promo-discount').show();
+                                $('#promo-discount span').text(response.promo_discount);
+                                $('#member-discount').text(response.member_discount);
+                                $('#final-total').text(response.final_total);
+                            }
+                        },
+                        error: function() {
+                            alert('Gagal menghitung diskon. Silakan coba lagi.');
+                        }
+                    });
+                } else {
+                    $('#discount-details').hide();
+                }
+            });
+        });
+    </script>
 @endsection
