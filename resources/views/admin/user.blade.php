@@ -262,6 +262,11 @@
             background-color: silver;
             color: black;
         }
+
+        .badge-bronze {
+            background-color: orange;
+            color: white;
+        }
     </style>
 @endsection
 
@@ -417,7 +422,7 @@
                     let preferences = data.preferences.map(p => p.name).join(', ');
                     $('#detailPreferences').val(preferences);
                     $('#detailTotalSpent').val('Rp. ' + parseInt(data.total_spent)
-                .toLocaleString());
+                        .toLocaleString());
                     $('#detailLoyaltyLevel').val(data.loyalty_level);
                 }).fail(function() {
                     swal("Error", "Data tidak ditemukan atau terjadi kesalahan", "error");

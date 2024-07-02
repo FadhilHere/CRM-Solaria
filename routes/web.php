@@ -19,6 +19,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Admin\PromoController;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -44,7 +45,7 @@ Route::post('/register', [RegisterController::class, 'register']);
 
 // Route untuk halaman admin, dilindungi oleh middleware checkRole:admin
 Route::middleware('checkRole:admin')->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+    Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
     Route::get('/menus', [MenuController::class, 'index'])->name('menus.index');
     Route::post('/menus', [MenuController::class, 'store'])->name('menus.store');
     Route::get('/menus/{id}', [MenuController::class, 'show'])->name('menus.show');
@@ -82,9 +83,10 @@ Route::middleware('checkRole:admin')->group(function () {
     Route::delete('promos/{id}', [PromoController::class, 'destroy'])->name('promos.destroy');
 });
 
+Route::get('/', [LandingPageController::class, 'index'])->name('pelanggan.landing');
+
 // Route untuk halaman pelanggan, dilindungi oleh middleware checkRole:pelanggan
 Route::middleware('checkRole:pelanggan')->group(function () {
-    Route::get('/', [LandingPageController::class, 'index'])->name('pelanggan.landing');
     Route::post('/orders', [OrderController::class, 'store'])->name('orders.store');
     Route::get('/menus/{id}/detail', [LandingPageController::class, 'show'])->name('menus.detail');
 
