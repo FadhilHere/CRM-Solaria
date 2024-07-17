@@ -1,50 +1,45 @@
 @extends('admin.layouts.index')
 
-@section('title', 'Data Menu')
+@section('title', 'Data Promo')
 
 @section('main')
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h4>Data Menu</h4>
+                    <h4>Data Promo</h4>
                 </div>
                 <div class="card-body">
-                    <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#addMenuModal">
-                        Tambah Data
+                    <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#addPromoModal">
+                        Tambah Promo
                     </button>
                     <div class="table-responsive">
                         <table class="table table-striped" id="table-1">
                             <thead>
                                 <tr>
                                     <th class="text-center">Index</th>
-                                    <th>Picture</th>
-                                    <th>Name</th>
-                                    <th>Price</th>
-                                    <th>Description</th>
-                                    <th>Category</th>
+                                    <th>Nama</th>
+                                    <th>Expired</th>
+                                    <th>Persentase</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($menus as $index => $menu)
+                                @foreach ($promos as $index => $promo)
                                     <tr>
                                         <td class="text-center">{{ $index + 1 }}</td>
-                                        <td><img src="{{ Storage::url($menu->picture) }}" alt="{{ $menu->name }}"
-                                                width="50"></td>
-                                        <td>{{ $menu->name }}</td>
-                                        <td>Rp. {{ $menu->price }}</td>
-                                        <td>{{ $menu->description }}</td>
-                                        <td>{{ $menu->category }}</td>
+                                        <td>{{ $promo->name }}</td>
+                                        <td>{{ $promo->expired }}</td>
+                                        <td>{{ $promo->percentage }}%</td>
                                         <td>
                                             <a href="#" class="btn btn-icon btn-info" data-toggle="modal"
-                                                data-target="#detailMenuModal" data-id="{{ $menu->id }}"><i
+                                                data-target="#detailPromoModal" data-id="{{ $promo->id }}"><i
                                                     class="fas fa-info-circle"></i></a>
                                             <a href="#" class="btn btn-icon btn-primary" data-toggle="modal"
-                                                data-target="#editMenuModal" data-id="{{ $menu->id }}"><i
+                                                data-target="#editPromoModal" data-id="{{ $promo->id }}"><i
                                                     class="far fa-edit"></i></a>
-                                            <a href="#" class="btn btn-icon btn-danger" data-id="{{ $menu->id }}"
-                                                data-action="{{ route('menus.destroy', $menu->id) }}"><i
+                                            <a href="#" class="btn btn-icon btn-danger" data-id="{{ $promo->id }}"
+                                                data-action="{{ route('promos.destroy', $promo->id) }}"><i
                                                     class="fas fa-times"></i></a>
                                         </td>
                                     </tr>
@@ -59,44 +54,31 @@
 @endsection
 
 @section('modal')
-    <!-- Modal for adding menu -->
-    <div class="modal fade" id="addMenuModal" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+    <!-- Modal for adding promo -->
+    <div class="modal fade" id="addPromoModal" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="formModal">Tambah Data Menu</h5>
+                    <h5 class="modal-title" id="formModal">Tambah Promo</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="addMenuForm" action="{{ route('menus.store') }}" method="POST"
-                        enctype="multipart/form-data">
+                    <form id="addPromoForm" action="{{ route('promos.store') }}" method="POST">
                         @csrf
                         <div class="form-group">
-                            <label>Picture</label>
-                            <input type="file" class="form-control" name="picture" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Name</label>
+                            <label>Nama</label>
                             <input type="text" class="form-control" name="name" required>
                         </div>
                         <div class="form-group">
-                            <label>Price</label>
-                            <input type="number" class="form-control" name="price" required>
+                            <label>Expired</label>
+                            <input type="date" class="form-control" name="expired" required>
                         </div>
                         <div class="form-group">
-                            <label>Description</label>
-                            <textarea class="form-control" name="description" required></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label>Category</label>
-                            <select class="form-control" name="category" required>
-                                <option value="" disabled selected>Select Category</option>
-                                <option value="Chinese">Chinese</option>
-                                <option value="Western">Western</option>
-                                <option value="Local">Local</option>
-                            </select>
+                            <label>Persentase</label>
+                            <input type="number" class="form-control" name="percentage" min="1" max="100"
+                                required>
                         </div>
                         <button type="submit" class="btn btn-primary">Simpan</button>
                     </form>
@@ -105,59 +87,48 @@
         </div>
     </div>
 
-    <!-- Modal for editing menu -->
-    <div class="modal fade" id="editMenuModal" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="formModal">Edit Data Menu</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form id="editMenuForm" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        @method('PUT')
-                        <div class="form-group">
-                            <label>Picture</label>
-                            <input type="file" class="form-control" name="picture">
-                        </div>
-                        <div class="form-group">
-                            <label>Name</label>
-                            <input type="text" class="form-control" name="name" id="editName" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Price</label>
-                            <input type="number" class="form-control" name="price" id="editPrice" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Description</label>
-                            <textarea class="form-control" name="description" id="editDescription" required></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label>Category</label>
-                            <select class="form-control" name="category" id="editCategory" required>
-                                <option value="" disabled>Select Category</option>
-                                <option value="Chinese">Chinese</option>
-                                <option value="Western">Western</option>
-                                <option value="Local">Local</option>
-                            </select>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Simpan</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal for detail menu -->
-    <div class="modal fade" id="detailMenuModal" tabindex="-1" role="dialog" aria-labelledby="formModal"
+    <!-- Modal for editing promo -->
+    <div class="modal fade" id="editPromoModal" tabindex="-1" role="dialog" aria-labelledby="formModal"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="formModal">Detail Data Menu</h5>
+                    <h5 class="modal-title" id="formModal">Edit Data Promo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="editPromoForm" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <div class="form-group">
+                            <label>Nama</label>
+                            <input type="text" class="form-control" name="name" id="editName" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Expired</label>
+                            <input type="date" class="form-control" name="expired" id="editExpired" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Persentase</label>
+                            <input type="number" class="form-control" name="percentage" id="editPercentage"
+                                min="1" max="100" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for detail promo -->
+    <div class="modal fade" id="detailPromoModal" tabindex="-1" role="dialog" aria-labelledby="formModal"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="formModal">Detail Data Promo</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -165,24 +136,16 @@
                 <div class="modal-body">
                     <form>
                         <div class="form-group">
-                            <label>Picture</label>
-                            <img id="detailPicture" src="" alt="Picture" width="100">
-                        </div>
-                        <div class="form-group">
-                            <label>Name</label>
+                            <label>Nama</label>
                             <input type="text" class="form-control" id="detailName" readonly>
                         </div>
                         <div class="form-group">
-                            <label>Price</label>
-                            <input type="text" class="form-control" id="detailPrice" readonly>
+                            <label>Expired</label>
+                            <input type="text" class="form-control" id="detailExpired" readonly>
                         </div>
                         <div class="form-group">
-                            <label>Description</label>
-                            <textarea class="form-control" id="detailDescription" rows="5" readonly></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label>Category</label>
-                            <input type="text" class="form-control" id="detailCategory" readonly>
+                            <label>Persentase</label>
+                            <input type="text" class="form-control" id="detailPercentage" readonly>
                         </div>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
                     </form>
@@ -212,14 +175,12 @@
 @endsection
 
 @section('script')
-    <!-- DataTables Initialization -->
-    <script src="{{ asset('assets/js/page/datatables.js') }}"></script>
     <script>
         $(document).ready(function() {
             $('#table-1').DataTable();
 
-            // Handle add menu form submission
-            $('#addMenuForm').on('submit', function(e) {
+            // Handle add promo form submission
+            $('#addPromoForm').on('submit', function(e) {
                 e.preventDefault();
                 let formData = new FormData(this);
                 $.ajax({
@@ -230,7 +191,8 @@
                     contentType: false,
                     success: function(response) {
                         if (response.success) {
-                            swal("Berhasil", "Data berhasil ditambahkan", "success").then(
+                            $('#addPromoModal').modal('hide'); // Menutup modal setelah berhasil
+                            swal("Berhasil", "Promo berhasil ditambahkan", "success").then(
                                 () => {
                                     location.reload();
                                 });
@@ -239,7 +201,6 @@
                         }
                     },
                     error: function(xhr) {
-                        console.log(xhr); // Log error response to the console
                         let errors = xhr.responseJSON.errors;
                         let errorMessage = '';
                         for (let key in errors) {
@@ -251,21 +212,20 @@
             });
 
             // Handle edit button click
-            $('#editMenuModal').on('show.bs.modal', function(event) {
+            $('#editPromoModal').on('show.bs.modal', function(event) {
                 let button = $(event.relatedTarget);
                 let id = button.data('id');
 
-                $.get('/menus/' + id, function(data) {
-                    $('#editMenuForm').attr('action', '/menus/' + id);
+                $.get('/promos/' + id, function(data) {
+                    $('#editPromoForm').attr('action', '/promos/' + id);
                     $('#editName').val(data.name);
-                    $('#editPrice').val(data.price);
-                    $('#editDescription').val(data.description);
-                    $('#editCategory').val(data.category);
+                    $('#editExpired').val(data.expired);
+                    $('#editPercentage').val(data.percentage);
                 });
             });
 
-            // Handle edit menu form submission
-            $('#editMenuForm').on('submit', function(e) {
+            // Handle edit promo form submission
+            $('#editPromoForm').on('submit', function(e) {
                 e.preventDefault();
                 let formData = new FormData(this);
                 $.ajax({
@@ -276,15 +236,17 @@
                     contentType: false,
                     success: function(response) {
                         if (response.success) {
-                            swal("Berhasil", "Data berhasil diperbarui", "success").then(() => {
-                                location.reload();
-                            });
+                            $('#editPromoModal').modal(
+                                'hide'); // Menutup modal setelah berhasil
+                            swal("Berhasil", "Promo berhasil diperbarui", "success").then(
+                                () => {
+                                    location.reload();
+                                });
                         } else {
                             swal("Error", response.message, "error");
                         }
                     },
                     error: function(xhr) {
-                        console.log(xhr); // Log error response to the console
                         let errors = xhr.responseJSON.errors;
                         let errorMessage = '';
                         for (let key in errors) {
@@ -316,13 +278,22 @@
                             },
                             success: function(response) {
                                 if (response.success) {
-                                    swal("Berhasil", "Data berhasil dihapus", "success")
+                                    swal("Berhasil", "Promo berhasil dihapus",
+                                            "success")
                                         .then(() => {
                                             location.reload();
                                         });
                                 } else {
                                     swal("Error", response.message, "error");
                                 }
+                            },
+                            error: function(xhr) {
+                                let errors = xhr.responseJSON.errors;
+                                let errorMessage = '';
+                                for (let key in errors) {
+                                    errorMessage += errors[key][0] + '\n';
+                                }
+                                swal("Error", errorMessage, "error");
                             }
                         });
                     }
@@ -330,16 +301,14 @@
             });
 
             // Handle detail button click
-            $('#detailMenuModal').on('show.bs.modal', function(event) {
+            $('#detailPromoModal').on('show.bs.modal', function(event) {
                 let button = $(event.relatedTarget);
                 let id = button.data('id');
 
-                $.get('/menus/' + id, function(data) {
-                    $('#detailPicture').attr('src', '/storage/' + data.picture);
+                $.get('/promos/' + id, function(data) {
                     $('#detailName').val(data.name);
-                    $('#detailPrice').val(data.price);
-                    $('#detailDescription').val(data.description);
-                    $('#detailCategory').val(data.category);
+                    $('#detailExpired').val(data.expired);
+                    $('#detailPercentage').val(data.percentage + '%');
                 }).fail(function() {
                     swal("Error", "Data tidak ditemukan atau terjadi kesalahan", "error");
                 });

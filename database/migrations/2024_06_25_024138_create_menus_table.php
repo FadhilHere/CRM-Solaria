@@ -15,6 +15,7 @@ return new class extends Migration {
             $table->string('picture');
             $table->string('name')->unique();
             $table->decimal('price', 10, 2);
+            $table->string('description');
             $table->enum('category', ['Chinese', 'Western', 'Local']);
             $table->timestamps();
         });

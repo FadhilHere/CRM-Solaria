@@ -1,6 +1,6 @@
 <footer class="main-footer">
     <div class="footer-left">
-        <p>SISTEM RESERVASI HOTEL</p>
+        <p>Solaria co.</p>
     </div>
     <div class="footer-right">
     </div>

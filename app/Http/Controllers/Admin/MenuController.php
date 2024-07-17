@@ -14,6 +14,11 @@ class MenuController extends Controller
         $menus = Menu::all();
         return view('admin.menu', compact('menus'));
     }
+    public function detail($id)
+    {
+        $menu = Menu::findOrFail($id);
+        return view('pelanggan.menu_detail', compact('menu'));
+    }
 
     public function store(Request $request)
     {
@@ -21,6 +26,7 @@ class MenuController extends Controller
             'picture' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'name' => 'required|unique:menus,name',
             'price' => 'required|numeric',
+            'description' => 'required',
             'category' => 'required|in:Chinese,Western,Local',
         ]);
 
@@ -30,12 +36,12 @@ class MenuController extends Controller
             'picture' => $picturePath,
             'name' => $request->name,
             'price' => $request->price,
+            'description' => $request->description,
             'category' => $request->category,
         ]);
 
         return response()->json(['success' => true]);
     }
-
 
     public function show($id)
     {
@@ -51,6 +57,7 @@ class MenuController extends Controller
             'picture' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'name' => 'required|unique:menus,name,' . $id,
             'price' => 'required|numeric',
+            'description' => 'required',
             'category' => 'required|in:Chinese,Western,Local',
         ]);
 
@@ -67,6 +74,7 @@ class MenuController extends Controller
         $menu->update([
             'name' => $request->name,
             'price' => $request->price,
+            'description' => $request->description,
             'category' => $request->category,
         ]);
 

@@ -9,16 +9,7 @@ class Order extends Model
 {
     use HasFactory;
 
-    protected $table = 'orders';
-    protected $primaryKey = 'id';
-    public $timestamps = true;
-
-    protected $fillable = [
-        'user_id',
-        'order_date',
-        'status',
-        'total_price',
-    ];
+    protected $fillable = ['user_id', 'total_price', 'status'];
 
     public function user()
     {

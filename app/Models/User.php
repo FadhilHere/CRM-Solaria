@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Carbon\Carbon;
 
 class User extends Authenticatable
 {
@@ -45,5 +46,31 @@ class User extends Authenticatable
     public function preferences()
     {
         return $this->hasMany(Preference::class);
+    }
+    public function getMonthlyAverageSpendingAttribute()
+    {
+        $oneMonthAgo = Carbon::now()->subMonth();
+        $totalSpent = $this->orders()
+            ->where('created_at', '>=', $oneMonthAgo)
+            ->sum('total_price');
+
+        return $totalSpent;
+    }
+
+    public function updateLoyaltyLevel()
+    {
+        $averageSpending = $this->monthly_average_spending;
+
+        if ($averageSpending >= 1000000) {
+            $this->loyalty_level = 'Platinum';
+        } elseif ($averageSpending >= 500000) {
+            $this->loyalty_level = 'Gold';
+        } elseif ($averageSpending >= 200000) {
+            $this->loyalty_level = 'Silver';
+        } else {
+            $this->loyalty_level = 'Bronze';
+        }
+
+        $this->save();
     }
 }

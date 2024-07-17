@@ -1,16 +1,16 @@
 @extends('admin.layouts.index')
 
-@section('title', 'Data Menu')
+@section('title', 'Data Pelanggan')
 
 @section('main')
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h4>Data Menu</h4>
+                    <h4>Data Pelanggan</h4>
                 </div>
                 <div class="card-body">
-                    <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#addMenuModal">
+                    <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#addUserModal">
                         Tambah Data
                     </button>
                     <div class="table-responsive">
@@ -18,33 +18,50 @@
                             <thead>
                                 <tr>
                                     <th class="text-center">Index</th>
-                                    <th>Picture</th>
                                     <th>Name</th>
-                                    <th>Price</th>
-                                    <th>Description</th>
-                                    <th>Category</th>
+                                    <th>Email</th>
+                                    <th>Phone Number</th>
+                                    <th>Address</th>
+                                    <th>Date of Birth</th>
+                                    <th>Role</th>
+                                    <th>Preferences</th>
+                                    <th>Total Belanja</th>
+                                    <th>Level Loyalitas</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($menus as $index => $menu)
+                                @foreach ($users as $index => $user)
                                     <tr>
                                         <td class="text-center">{{ $index + 1 }}</td>
-                                        <td><img src="{{ Storage::url($menu->picture) }}" alt="{{ $menu->name }}"
-                                                width="50"></td>
-                                        <td>{{ $menu->name }}</td>
-                                        <td>Rp. {{ $menu->price }}</td>
-                                        <td>{{ $menu->description }}</td>
-                                        <td>{{ $menu->category }}</td>
+                                        <td>{{ $user->name }}</td>
+                                        <td>{{ $user->email }}</td>
+                                        <td>{{ $user->phone_number }}</td>
+                                        <td>{{ $user->address }}</td>
+                                        <td>{{ $user->date_of_birth }}</td>
+                                        <td>{{ $user->role }}</td>
+                                        <td>
+                                            @foreach ($user->preferences as $preference)
+                                                {{ $preference->name }}@if (!$loop->last)
+                                                    ,
+                                                @endif
+                                            @endforeach
+                                        </td>
+                                        <td>Rp. {{ number_format($user->total_spent, 0, ',', '.') }}</td>
+                                        <td>
+                                            <span class="badge badge-{{ strtolower($user->loyalty_level) }}">
+                                                {{ $user->loyalty_level }}
+                                            </span>
+                                        </td>
                                         <td>
                                             <a href="#" class="btn btn-icon btn-info" data-toggle="modal"
-                                                data-target="#detailMenuModal" data-id="{{ $menu->id }}"><i
+                                                data-target="#detailUserModal" data-id="{{ $user->id }}"><i
                                                     class="fas fa-info-circle"></i></a>
                                             <a href="#" class="btn btn-icon btn-primary" data-toggle="modal"
-                                                data-target="#editMenuModal" data-id="{{ $menu->id }}"><i
+                                                data-target="#editUserModal" data-id="{{ $user->id }}"><i
                                                     class="far fa-edit"></i></a>
-                                            <a href="#" class="btn btn-icon btn-danger" data-id="{{ $menu->id }}"
-                                                data-action="{{ route('menus.destroy', $menu->id) }}"><i
+                                            <a href="#" class="btn btn-icon btn-danger" data-id="{{ $user->id }}"
+                                                data-action="{{ route('users.destroy', $user->id) }}"><i
                                                     class="fas fa-times"></i></a>
                                         </td>
                                     </tr>
@@ -59,43 +76,49 @@
 @endsection
 
 @section('modal')
-    <!-- Modal for adding menu -->
-    <div class="modal fade" id="addMenuModal" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+    <!-- Modal for adding user -->
+    <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="formModal">Tambah Data Menu</h5>
+                    <h5 class="modal-title" id="formModal">Tambah Data User</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="addMenuForm" action="{{ route('menus.store') }}" method="POST"
-                        enctype="multipart/form-data">
+                    <form id="addUserForm" action="{{ route('users.store') }}" method="POST">
                         @csrf
-                        <div class="form-group">
-                            <label>Picture</label>
-                            <input type="file" class="form-control" name="picture" required>
-                        </div>
                         <div class="form-group">
                             <label>Name</label>
                             <input type="text" class="form-control" name="name" required>
                         </div>
                         <div class="form-group">
-                            <label>Price</label>
-                            <input type="number" class="form-control" name="price" required>
+                            <label>Email</label>
+                            <input type="email" class="form-control" name="email" required>
                         </div>
                         <div class="form-group">
-                            <label>Description</label>
-                            <textarea class="form-control" name="description" required></textarea>
+                            <label>Password</label>
+                            <input type="password" class="form-control" name="password" required>
                         </div>
                         <div class="form-group">
-                            <label>Category</label>
-                            <select class="form-control" name="category" required>
-                                <option value="" disabled selected>Select Category</option>
-                                <option value="Chinese">Chinese</option>
-                                <option value="Western">Western</option>
-                                <option value="Local">Local</option>
+                            <label>Phone Number</label>
+                            <input type="text" class="form-control" name="phone_number" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Address</label>
+                            <textarea class="form-control" name="address" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Date of Birth</label>
+                            <input type="date" class="form-control" name="date_of_birth" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Role</label>
+                            <select class="form-control" name="role" required>
+                                <option value="" disabled selected>Select Role</option>
+                                <option value="admin">Admin</option>
+                                <option value="pelanggan">Pelanggan</option>
                             </select>
                         </div>
                         <button type="submit" class="btn btn-primary">Simpan</button>
@@ -105,43 +128,52 @@
         </div>
     </div>
 
-    <!-- Modal for editing menu -->
-    <div class="modal fade" id="editMenuModal" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+    <!-- Modal for editing user -->
+    <div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="formModal">Edit Data Menu</h5>
+                    <h5 class="modal-title" id="formModal">Edit Data User</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="editMenuForm" method="POST" enctype="multipart/form-data">
+                    <form id="editUserForm" method="POST">
                         @csrf
                         @method('PUT')
-                        <div class="form-group">
-                            <label>Picture</label>
-                            <input type="file" class="form-control" name="picture">
-                        </div>
                         <div class="form-group">
                             <label>Name</label>
                             <input type="text" class="form-control" name="name" id="editName" required>
                         </div>
                         <div class="form-group">
-                            <label>Price</label>
-                            <input type="number" class="form-control" name="price" id="editPrice" required>
+                            <label>Email</label>
+                            <input type="email" class="form-control" name="email" id="editEmail" required>
                         </div>
                         <div class="form-group">
-                            <label>Description</label>
-                            <textarea class="form-control" name="description" id="editDescription" required></textarea>
+                            <label>Password</label>
+                            <input type="password" class="form-control" name="password" id="editPassword">
                         </div>
                         <div class="form-group">
-                            <label>Category</label>
-                            <select class="form-control" name="category" id="editCategory" required>
-                                <option value="" disabled>Select Category</option>
-                                <option value="Chinese">Chinese</option>
-                                <option value="Western">Western</option>
-                                <option value="Local">Local</option>
+                            <label>Phone Number</label>
+                            <input type="text" class="form-control" name="phone_number" id="editPhoneNumber"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label>Address</label>
+                            <textarea class="form-control" name="address" id="editAddress" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Date of Birth</label>
+                            <input type="date" class="form-control" name="date_of_birth" id="editDateOfBirth"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label>Role</label>
+                            <select class="form-control" name="role" id="editRole" required>
+                                <option value="" disabled>Select Role</option>
+                                <option value="admin">Admin</option>
+                                <option value="pelanggan">Pelanggan</option>
                             </select>
                         </div>
                         <button type="submit" class="btn btn-primary">Simpan</button>
@@ -151,13 +183,13 @@
         </div>
     </div>
 
-    <!-- Modal for detail menu -->
-    <div class="modal fade" id="detailMenuModal" tabindex="-1" role="dialog" aria-labelledby="formModal"
+    <!-- Modal for detail user -->
+    <div class="modal fade" id="detailUserModal" tabindex="-1" role="dialog" aria-labelledby="formModal"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="formModal">Detail Data Menu</h5>
+                    <h5 class="modal-title" id="formModal">Detail Data User</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -165,24 +197,40 @@
                 <div class="modal-body">
                     <form>
                         <div class="form-group">
-                            <label>Picture</label>
-                            <img id="detailPicture" src="" alt="Picture" width="100">
-                        </div>
-                        <div class="form-group">
                             <label>Name</label>
                             <input type="text" class="form-control" id="detailName" readonly>
                         </div>
                         <div class="form-group">
-                            <label>Price</label>
-                            <input type="text" class="form-control" id="detailPrice" readonly>
+                            <label>Email</label>
+                            <input type="text" class="form-control" id="detailEmail" readonly>
                         </div>
                         <div class="form-group">
-                            <label>Description</label>
-                            <textarea class="form-control" id="detailDescription" rows="5" readonly></textarea>
+                            <label>Phone Number</label>
+                            <input type="text" class="form-control" id="detailPhoneNumber" readonly>
                         </div>
                         <div class="form-group">
-                            <label>Category</label>
-                            <input type="text" class="form-control" id="detailCategory" readonly>
+                            <label>Address</label>
+                            <textarea class="form-control" id="detailAddress" rows="3" readonly></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Date of Birth</label>
+                            <input type="text" class="form-control" id="detailDateOfBirth" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Role</label>
+                            <input type="text" class="form-control" id="detailRole" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Preferensi</label>
+                            <input type="text" class="form-control" id="detailPreferences" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Total Belanja</label>
+                            <input type="text" class="form-control" id="detailTotalSpent" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Level Loyalitas</label>
+                            <input type="text" class="form-control" id="detailLoyaltyLevel" readonly>
                         </div>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
                     </form>
@@ -199,6 +247,27 @@
         href="{{ asset('assets/bundles/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css') }}">
     <!-- Prism CSS -->
     <link rel="stylesheet" href="{{ asset('assets/bundles/prism/prism.css') }}">
+    <style>
+        .badge-platinum {
+            background-color: #e5e4e2;
+            color: black;
+        }
+
+        .badge-gold {
+            background-color: gold;
+            color: black;
+        }
+
+        .badge-silver {
+            background-color: silver;
+            color: black;
+        }
+
+        .badge-bronze {
+            background-color: orange;
+            color: white;
+        }
+    </style>
 @endsection
 
 @section('js')
@@ -218,8 +287,8 @@
         $(document).ready(function() {
             $('#table-1').DataTable();
 
-            // Handle add menu form submission
-            $('#addMenuForm').on('submit', function(e) {
+            // Handle add user form submission
+            $('#addUserForm').on('submit', function(e) {
                 e.preventDefault();
                 let formData = new FormData(this);
                 $.ajax({
@@ -239,7 +308,6 @@
                         }
                     },
                     error: function(xhr) {
-                        console.log(xhr); // Log error response to the console
                         let errors = xhr.responseJSON.errors;
                         let errorMessage = '';
                         for (let key in errors) {
@@ -251,21 +319,23 @@
             });
 
             // Handle edit button click
-            $('#editMenuModal').on('show.bs.modal', function(event) {
+            $('#editUserModal').on('show.bs.modal', function(event) {
                 let button = $(event.relatedTarget);
                 let id = button.data('id');
 
-                $.get('/menus/' + id, function(data) {
-                    $('#editMenuForm').attr('action', '/menus/' + id);
+                $.get('/users/' + id, function(data) {
+                    $('#editUserForm').attr('action', '/users/' + id);
                     $('#editName').val(data.name);
-                    $('#editPrice').val(data.price);
-                    $('#editDescription').val(data.description);
-                    $('#editCategory').val(data.category);
+                    $('#editEmail').val(data.email);
+                    $('#editPhoneNumber').val(data.phone_number);
+                    $('#editAddress').val(data.address);
+                    $('#editDateOfBirth').val(data.date_of_birth);
+                    $('#editRole').val(data.role);
                 });
             });
 
-            // Handle edit menu form submission
-            $('#editMenuForm').on('submit', function(e) {
+            // Handle edit user form submission
+            $('#editUserForm').on('submit', function(e) {
                 e.preventDefault();
                 let formData = new FormData(this);
                 $.ajax({
@@ -284,7 +354,6 @@
                         }
                     },
                     error: function(xhr) {
-                        console.log(xhr); // Log error response to the console
                         let errors = xhr.responseJSON.errors;
                         let errorMessage = '';
                         for (let key in errors) {
@@ -323,6 +392,14 @@
                                 } else {
                                     swal("Error", response.message, "error");
                                 }
+                            },
+                            error: function(xhr) {
+                                let errors = xhr.responseJSON.errors;
+                                let errorMessage = '';
+                                for (let key in errors) {
+                                    errorMessage += errors[key][0] + '\n';
+                                }
+                                swal("Error", errorMessage, "error");
                             }
                         });
                     }
@@ -330,16 +407,23 @@
             });
 
             // Handle detail button click
-            $('#detailMenuModal').on('show.bs.modal', function(event) {
+            $('#detailUserModal').on('show.bs.modal', function(event) {
                 let button = $(event.relatedTarget);
                 let id = button.data('id');
 
-                $.get('/menus/' + id, function(data) {
-                    $('#detailPicture').attr('src', '/storage/' + data.picture);
+                $.get('/users/' + id, function(data) {
                     $('#detailName').val(data.name);
-                    $('#detailPrice').val(data.price);
-                    $('#detailDescription').val(data.description);
-                    $('#detailCategory').val(data.category);
+                    $('#detailEmail').val(data.email);
+                    $('#detailPhoneNumber').val(data.phone_number);
+                    $('#detailAddress').val(data.address);
+                    $('#detailDateOfBirth').val(data.date_of_birth);
+                    $('#detailRole').val(data.role);
+
+                    let preferences = data.preferences.map(p => p.name).join(', ');
+                    $('#detailPreferences').val(preferences);
+                    $('#detailTotalSpent').val('Rp. ' + parseInt(data.total_spent)
+                        .toLocaleString());
+                    $('#detailLoyaltyLevel').val(data.loyalty_level);
                 }).fail(function() {
                     swal("Error", "Data tidak ditemukan atau terjadi kesalahan", "error");
                 });
